@@ -1,7 +1,7 @@
 __author__ = 'Piotr Dyba'
 
 from sqlalchemy import create_engine
-from app import db, bcrypt
+from main import db, bcrypt
 import models
 
 
