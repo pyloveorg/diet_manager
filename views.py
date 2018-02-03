@@ -19,11 +19,11 @@ def info():
 def register():
     return render_template('register.html')
 
-@app.route('/new-user', methods=['POST'])
-def new_post():
+@app.route('/register', methods=['POST'])
+def new_user():
     password = request.form['user_password']
     email = request.form['user_email']
     post = User(password=password, email=email)
     db.session.add(post)
     db.session.commit()
-    return redirect('/register')
+    return redirect('/')
