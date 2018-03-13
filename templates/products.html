@@ -16,6 +16,7 @@
         <th> białko </th>
         <th> tłuszcze </th>
         <th> węglowodany </th>
+        <th> szczegóły </th>
 
 
     </tr>
@@ -26,6 +27,8 @@
         <td> {{ product['protein'] }} </td>
         <td> {{ product['fat'] }} </td>
         <td> {{ product['carbohydrates'] }} </td>
+        <td> <a href="{{ product['link']}}">kliknij</a></td>
+
 
     </tr>
     {% endfor %}

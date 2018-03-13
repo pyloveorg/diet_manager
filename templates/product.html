@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>produkt</title>
+</head>
+<body>
+
+<h1> Informacje o produkcie: </h1>
+<table border>
+    <tr>
+        <td>nazwa:</td>
+        <td>{{ product['name']}}</td>
+    </tr>
+    <tr>
+        <td>kalorie na 100 g:</td>
+        <td>{{ product['calories']}}</td>
+    <tr>
+        <td>białka na 100 g:</td>
+        <td>{{ product['protein']}}</td>
+    </tr>
+    <tr>
+        <td>tłuszcze na 100 g:</td>
+        <td>{{ product['fat']}}</td>
+    </tr>
+    <tr>
+        <td>węglowodany na 100 g:</td>
+        <td>{{ product['carbohydrates']}}</td>
+    </tr>
+</table>
+
+<h1> Lista potraw, w których wykorzystujemy produkt {{ product['name']}}: </h1>
+
+<h1> Czy usunąć produkt z listy? </h1>
+<form action='/product/{{ id }}' method="post">
+       <button type="submit">Tak</button>
+</form>
+
+<h1> Powrót do listy produktów: </h1>
+<a href="/products">kliknij</a
+</body>
+</html>

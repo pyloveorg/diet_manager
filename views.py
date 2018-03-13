@@ -16,7 +16,7 @@ def info():
 jablko = Product(1, "jabłko", 46, 0, 0, 12)
 marchew = Product(2, "marchew", 27, 1, 0, 9)
 
-products_list = []
+products_list = [jablko, marchew]
 
 @app.route('/products', methods=['GET', 'POST'])
 def products():
@@ -31,5 +31,16 @@ def products():
         return redirect("/products")
 
     return render_template("products.html", products=products_list)
+
+@app.route('/product/<ident>', methods=['GET', 'POST'])
+def product_data(ident):
+    for product in products_list:
+        if int(product.product_id) == int(ident):
+            if request.method == "POST":
+                products_list.remove(product)
+                return render_template("products.html", products=products_list)
+
+            return render_template("product.html", product=product, id=ident)
+
 
 

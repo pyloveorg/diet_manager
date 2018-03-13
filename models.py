@@ -55,6 +55,7 @@ class Product:
         self.calories = calories
         self.name = name
         self.product_id = product_id
+        self.link = "/product/" + str(self.product_id)
 
     def __str__(self):
         return "{}: {} kalorii, {} białka, {} tłuszczy, {} węglowodanów".\
