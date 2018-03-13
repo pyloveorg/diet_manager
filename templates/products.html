@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>products</title>
+</head>
+<body>
+
+<h1>Lista produktów:</h1>
+
+
+<table border>
+    <tr>
+        <th> nazwa </th>
+        <th> kalorie </th>
+        <th> białko </th>
+        <th> tłuszcze </th>
+        <th> węglowodany </th>
+
+
+    </tr>
+    {% for product in products %}
+    <tr>
+        <td> {{ product['name'] }} </td>
+        <td> {{ product['calories'] }} </td>
+        <td> {{ product['protein'] }} </td>
+        <td> {{ product['fat'] }} </td>
+        <td> {{ product['carbohydrates'] }} </td>
+
+    </tr>
+    {% endfor %}
+</table>
+
+
+<h1>Dodaj nowy produkt:</h1>
+
+<form action="/products" method="post">
+        <label for="id"> Identyfikator: </label>
+        <input type="number" name="id"><br>
+        <label for="nazwa"> Nazwa: </label>
+        <input type="text" name="nazwa"><br>
+        <label for="kalorie"> Kalorie (na 100 g): </label>
+        <input type="number" name = "kalorie"><br>
+        <label for="bialko"> Białko (na 100 g): </label>
+        <input type="number" name = "bialko"><br>
+        <label for="tluszcze"> Tłuszcze (na 100 g): </label>
+        <input type="number" name = "tluszcze"><br>
+        <label for="weglowodany"> Węglowodany (na 100 g): </label>
+        <input type="number" name = "weglowodany"><br>
+        <button type="submit">Wyślij</button>
+</form>
+
+</body>
+</html>
