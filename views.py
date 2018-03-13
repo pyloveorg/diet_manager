@@ -13,34 +13,38 @@ from flask import render_template, request, redirect
 def info():
     return render_template('info.html')
 
-jablko = Product(1, "jabłko", 46, 0, 0, 12)
-marchew = Product(2, "marchew", 27, 1, 0, 9)
 
-products_list = [jablko, marchew]
+# jablko = Product(1, "jabłko", 46, 0, 0, 12)
+# marchew = Product(2, "marchew", 27, 1, 0, 9)
+
+# products_list = [jablko, marchew]
+
 
 @app.route('/products', methods=['GET', 'POST'])
 def products():
     if request.method == "POST":
-        product_id = request.form.get("id")
         name = request.form.get("nazwa")
         calories = request.form.get("kalorie")
         protein = request.form.get("bialko")
         fat = request.form.get("tluszcze")
         carbohydrates = request.form.get("weglowodany")
-        products_list.append(Product(product_id, name, calories, protein, fat, carbohydrates))
+        product = Product(name=name, calories=calories, protein=protein,
+                          fat=fat, carbohydrates=carbohydrates)
+        db.session.add(product)
+        db.session.commit()
+
         return redirect("/products")
 
+    products_list = Product.query.all()
     return render_template("products.html", products=products_list)
+
 
 @app.route('/product/<ident>', methods=['GET', 'POST'])
 def product_data(ident):
-    for product in products_list:
-        if int(product.product_id) == int(ident):
-            if request.method == "POST":
-                products_list.remove(product)
-                return render_template("products.html", products=products_list)
+    product = Product.query.get(ident)
+    if request.method == "POST":
+        db.session.delete(product)
+        db.session.commit()
+        return render_template("products.html", products=Product.query.all())
 
-            return render_template("product.html", product=product, id=ident)
-
-
-
+    return render_template("product.html", product=product, id=ident)

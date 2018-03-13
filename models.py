@@ -6,6 +6,7 @@ from sqlalchemy import Column
 from sqlalchemy.types import Integer
 from sqlalchemy.types import String
 from sqlalchemy.types import Boolean
+from sqlalchemy.types import Float
 
 from main import db
 
@@ -34,7 +35,7 @@ class User(db.Model, UserMixin):
         return self.admin
 
 
-class Product:
+class Product(db.Model):
     """
     class Product says about energetic values for all the products that
     our User can use to prepare his dishes
@@ -46,16 +47,17 @@ class Product:
     :type carbohydrates : int
     :type list_of_dishes : list of Dish
     """
+    __tablename__ = 'products'
+    id = Column(Integer, autoincrement=True, primary_key=True)
+    name = Column(String(50))
+    calories = Column(Float)
+    protein = Column(Float)
+    fat = Column(Float)
+    carbohydrates = Column(Float)
 
-    def __init__(self, product_id, name, calories, protein, fat, carbohydrates):
-        self.list_of_dishes = []
-        self.carbohydrates = carbohydrates
-        self.fat = fat
-        self.protein = protein
-        self.calories = calories
-        self.name = name
-        self.product_id = product_id
-        self.link = "/product/" + str(self.product_id)
+    # def __init__(self):
+    #     self.list_of_dishes = []
+    #     self.link = "/product/" + str(self.id)
 
     def __str__(self):
         return "{}: {} kalorii, {} białka, {} tłuszczy, {} węglowodanów".\

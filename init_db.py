@@ -6,12 +6,12 @@ import models
 
 
 def db_start():
-    create_engine('sqlite:///tmp/test.db', convert_unicode=True)
+    create_engine('sqlite:///test.db', convert_unicode=True)
     db.create_all()
     db.session.commit()
     user = models.User()
     user.username = "piotr"
-    user.password = bcrypt.generate_password_hash('pppp1234')
+    # user.password = bcrypt.generate_password_hash('pppp1234')
     user.email = 'piotr@dyba.com.pl'
     user.admin = True
     user.poweruser = True

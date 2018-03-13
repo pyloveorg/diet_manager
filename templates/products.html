@@ -27,7 +27,7 @@
         <td> {{ product['protein'] }} </td>
         <td> {{ product['fat'] }} </td>
         <td> {{ product['carbohydrates'] }} </td>
-        <td> <a href="{{ product['link']}}">kliknij</a></td>
+        <td> <a href="product/{{ product['id']}}">kliknij</a></td>
 
 
     </tr>
@@ -38,8 +38,6 @@
 <h1>Dodaj nowy produkt:</h1>
 
 <form action="/products" method="post">
-        <label for="id"> Identyfikator: </label>
-        <input type="number" name="id"><br>
         <label for="nazwa"> Nazwa: </label>
         <input type="text" name="nazwa"><br>
         <label for="kalorie"> Kalorie (na 100 g): </label>
