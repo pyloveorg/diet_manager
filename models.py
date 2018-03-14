@@ -39,13 +39,12 @@ class Product(db.Model):
     """
     class Product says about energetic values for all the products that
     our User can use to prepare his dishes
-    :type product_id : int autoincrement
+    :type id : int autoincrement
     :type name : string
     :type calories : int
     :type protein : int
     :type fat : int
     :type carbohydrates : int
-    :type list_of_dishes : list of Dish
     """
     __tablename__ = 'products'
     id = Column(Integer, autoincrement=True, primary_key=True)
@@ -55,10 +54,19 @@ class Product(db.Model):
     fat = Column(Float)
     carbohydrates = Column(Float)
 
-    # def __init__(self):
-    #     self.list_of_dishes = []
-    #     self.link = "/product/" + str(self.id)
-
     def __str__(self):
         return "{}: {} kalorii, {} białka, {} tłuszczy, {} węglowodanów".\
             format(self.name, self.calories, self.protein, self.fat, self.carbohydrates)
+
+
+# class Ingredient(db.Model):
+#     """
+#        class Ingredient says how much of product do we have to use to prepare our dish
+#        :type product : Product
+#        :type amount : float
+#        """
+#
+#     __tablename__ = 'ingredients'
+#     id = Column(Integer, autoincrement=True, primary_key=True)
+#     product = Column(Product)
+#     amount = Column(Float)

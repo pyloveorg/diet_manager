@@ -14,12 +14,6 @@ def info():
     return render_template('info.html')
 
 
-# jablko = Product(1, "jabłko", 46, 0, 0, 12)
-# marchew = Product(2, "marchew", 27, 1, 0, 9)
-
-# products_list = [jablko, marchew]
-
-
 @app.route('/products', methods=['GET', 'POST'])
 def products():
     if request.method == "POST":
@@ -35,7 +29,7 @@ def products():
 
         return redirect("/products")
 
-    products_list = Product.query.all()
+    products_list = Product.query.order_by(Product.name).all()
     return render_template("products.html", products=products_list)
 
 
@@ -45,6 +39,21 @@ def product_data(ident):
     if request.method == "POST":
         db.session.delete(product)
         db.session.commit()
-        return render_template("products.html", products=Product.query.all())
+        return redirect("/products")
 
     return render_template("product.html", product=product, id=ident)
+
+
+@app.route('/product/<ident>/edit', methods=['GET', 'POST'])
+def product_edit(ident):
+    edited_product = Product.query.get(ident)
+    if request.method == "POST":
+        edited_product.name = request.form.get("nazwa")
+        edited_product.calories = request.form.get("kalorie")
+        edited_product.protein = request.form.get("bialko")
+        edited_product.fat = request.form.get("tluszcze")
+        edited_product.carbohydrates = request.form.get("weglowodany")
+        db.session.commit()
+        return redirect("/products")
+
+    return render_template("product_edit.html", product=edited_product, id=ident)

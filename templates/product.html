@@ -7,27 +7,31 @@
 <body>
 
 <h1> Informacje o produkcie: </h1>
+
 <table border>
     <tr>
         <td>nazwa:</td>
         <td>{{ product['name']}}</td>
     </tr>
     <tr>
-        <td>kalorie na 100 g:</td>
+        <td>kalorie:</td>
         <td>{{ product['calories']}}</td>
     <tr>
-        <td>białka na 100 g:</td>
+        <td>białko:</td>
         <td>{{ product['protein']}}</td>
     </tr>
     <tr>
-        <td>tłuszcze na 100 g:</td>
+        <td>tłuszcze:</td>
         <td>{{ product['fat']}}</td>
     </tr>
     <tr>
-        <td>węglowodany na 100 g:</td>
+        <td>węglowodany:</td>
         <td>{{ product['carbohydrates']}}</td>
     </tr>
 </table>
+
+<a href="/product/{{ product['id']}}/edit">Edytuj</a>
+
 
 <h1> Lista potraw, w których wykorzystujemy produkt {{ product['name']}}: </h1>
 

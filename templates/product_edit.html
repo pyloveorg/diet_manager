@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>product</title>
+</head>
+<body>
+
+<form action="/product/{{ id }}/edit" method="post">
+        <label for="nazwa"> Nazwa: </label>
+        <input type="text" name="nazwa" value = {{product['name']}}><br>
+        <label for="kalorie"> Kalorie (na 100 g): </label>
+        <input type="number" name = "kalorie" value = {{product['calories']}}><br>
+        <label for="bialko"> Białko (na 100 g): </label>
+        <input type="number" name = "bialko" value = {{product['protein']}}><br>
+        <label for="tluszcze"> Tłuszcze (na 100 g): </label>
+        <input type="number" name = "tluszcze" value = {{product['fat']}}><br>
+        <label for="weglowodany"> Węglowodany (na 100 g): </label>
+        <input type="number" name = "weglowodany" value = {{product['carbohydrates']}}><br>
+        <button type="submit">Wyślij</button>
+</form>
+
+</body>
+</html>
