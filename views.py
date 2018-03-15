@@ -4,7 +4,7 @@ from main import app
 from main import db
 from main import bcrypt
 from main import lm
-from models import Product
+from models import Product, Dish
 
 from flask import render_template, request, redirect
 
@@ -57,3 +57,18 @@ def product_edit(ident):
         return redirect("/products")
 
     return render_template("product_edit.html", product=edited_product, id=ident)
+
+
+@app.route('/dish/add', methods=['GET', 'POST'])
+def new_dish():
+    pass
+
+@app.route('/dish', methods=['GET', 'POST'])
+def dish():
+    pass
+
+
+@app.route('/list_of_dishes', methods=['GET'])
+def dishes():
+    dishes_list = Dish.query.order_by(Dish.name).all()
+    return render_template("list_of_dishes.html", list=dishes_list)

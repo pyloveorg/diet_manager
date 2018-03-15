@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>list of dishes</title>
+</head>
+<body>
+
+<table border>
+    <tr>
+        <th> nazwa </th>
+        <th> szczegóły </th>
+
+
+    </tr>
+    {% for dish in list %}
+    <tr>
+        <td> {{ dish['name'] }} </td>
+        <td> <a href="dish/{{ dish['id']}}">kliknij</a></td>
+
+
+    </tr>
+    {% endfor %}
+</table>
+
+</body>
+</html>

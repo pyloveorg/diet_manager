@@ -1,8 +1,10 @@
+from sqlalchemy.orm import relationship
+
 __author__ = 'Piotr Dyba'
 
 from flask_login import UserMixin
 
-from sqlalchemy import Column
+from sqlalchemy import Column, ForeignKey
 from sqlalchemy.types import Integer
 from sqlalchemy.types import String
 from sqlalchemy.types import Boolean
@@ -48,25 +50,42 @@ class Product(db.Model):
     """
     __tablename__ = 'products'
     id = Column(Integer, autoincrement=True, primary_key=True)
-    name = Column(String(50))
+    name = Column(String(50), unique=True)
     calories = Column(Float)
     protein = Column(Float)
     fat = Column(Float)
     carbohydrates = Column(Float)
 
-    def __str__(self):
+    def __repr__(self):
         return "{}: {} kalorii, {} białka, {} tłuszczy, {} węglowodanów".\
             format(self.name, self.calories, self.protein, self.fat, self.carbohydrates)
 
 
-# class Ingredient(db.Model):
-#     """
-#        class Ingredient says how much of product do we have to use to prepare our dish
-#        :type product : Product
-#        :type amount : float
-#        """
-#
-#     __tablename__ = 'ingredients'
-#     id = Column(Integer, autoincrement=True, primary_key=True)
-#     product = Column(Product)
-#     amount = Column(Float)
+class Ingredient(db.Model):
+    """
+       class Ingredient says how much of product do we have to use to prepare our dish
+       :type product_id : Product
+       :type amount : float
+       """
+
+    __tablename__ = 'ingredients'
+    id = Column(Integer, autoincrement=True, primary_key=True)
+    amount = Column(Float)
+    product_id = Column(Integer, ForeignKey('products.id'))
+
+    def __repr__(self):
+        return "{} g produktu {}".format(self.amount, self.product_id.name)
+
+
+class Dish(db.Model):
+    """
+    class Dish is a list of products used to prepare that dish
+    :type dish_id : int autoincrement
+    :type name : str
+    """
+
+    __tablename__ = 'dish'
+    id = Column(Integer, autoincrement=True, primary_key=True)
+    name = Column(String(50), unique=True)
+    ingredient_id = Column(Integer, ForeignKey('ingredients.id'))
+    ingredient = relationship("Ingredient")
