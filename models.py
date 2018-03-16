@@ -72,6 +72,7 @@ class Ingredient(db.Model):
     id = Column(Integer, autoincrement=True, primary_key=True)
     amount = Column(Float)
     product_id = Column(Integer, ForeignKey('products.id'))
+    dish_id = Column(Integer, ForeignKey('dish.id'))
 
     def __repr__(self):
         return "{} g produktu {}".format(self.amount, self.product_id.name)
@@ -80,12 +81,12 @@ class Ingredient(db.Model):
 class Dish(db.Model):
     """
     class Dish is a list of products used to prepare that dish
-    :type dish_id : int autoincrement
+    :type id : int autoincrement
     :type name : str
     """
 
     __tablename__ = 'dish'
     id = Column(Integer, autoincrement=True, primary_key=True)
     name = Column(String(50), unique=True)
-    ingredient_id = Column(Integer, ForeignKey('ingredients.id'))
-    ingredient = relationship("Ingredient")
+    # ingredient_id = Column(Integer, ForeignKey('ingredients.id'))
+    ingredients = relationship("Ingredient")

@@ -4,7 +4,7 @@ from main import app
 from main import db
 from main import bcrypt
 from main import lm
-from models import Product, Dish
+from models import Product, Dish, Ingredient
 
 from flask import render_template, request, redirect
 
@@ -61,7 +61,30 @@ def product_edit(ident):
 
 @app.route('/dish/add', methods=['GET', 'POST'])
 def new_dish():
-    pass
+    if request.method == "POST":
+        name = request.form.get("nazwa")
+        dish_new = Dish(name=name)
+        db.session.add(dish_new)
+        db.session.commit()
+        d_id = dish_new.id
+        link_name = '/dish/' + str(d_id) + '/add/ingredient'
+        return redirect(link_name)
+    return render_template("add_dish.html")
+
+
+@app.route('/dish/<d_id>/add/ingredient', methods=['GET', 'POST'])
+def new_ingredient(d_id):
+    if request.method == "POST":
+        amount = request.form.get("ilosc")
+        product = request.form.get("produkt")
+        dish_id = d_id
+        ingredient_new = Ingredient(amount=amount, dish_id=dish_id, product_id=product)
+        db.session.add(ingredient_new)
+        db.session.commit()
+        link_name = '/dish/' + str(d_id) + '/add/ingredient'
+        return redirect(link_name)
+    return render_template("add_ingredient.html")
+
 
 @app.route('/dish', methods=['GET', 'POST'])
 def dish():
