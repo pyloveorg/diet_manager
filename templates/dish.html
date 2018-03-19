@@ -8,13 +8,16 @@
 
 <h1> Informacje o potrawie: </h1>
 
-nazwa
-{{ dish['name']}}
+<h3> nazwa:
+    {{ dish['name']}}
+</h3>
+<br>
 
 składniki:
-{% for ingredient in list_of_ingredients %}
-{{ingredient}}
+{% for ingredient in to_print %}
+<ul>{{ingredient}}</ul>
 {% endfor %}
+
 
 
 

@@ -74,6 +74,7 @@ def new_dish():
 
 @app.route('/dish/<d_id>/add/ingredient', methods=['GET', 'POST'])
 def new_ingredient(d_id):
+    products_list = Product.query.order_by(Product.name).all()
     if request.method == "POST":
         amount = request.form.get("ilosc")
         product = request.form.get("product")
@@ -83,16 +84,19 @@ def new_ingredient(d_id):
         db.session.commit()
         link_name_1 = '/dish/' + str(dish_id) + '/add/ingredient'
         return redirect(link_name_1)
-    return render_template("add_ingredient.html", dish_id=d_id)
+    return render_template("add_ingredient.html", dish_id=d_id, products_list=products_list)
 
 
 @app.route('/dish/<d_id>', methods=['GET', 'POST'])
 def dish_data(d_id):
     dish = Dish.query.get(d_id)
-    list_of_ingredients = []
+    to_print = []
     for ingr in dish.ingredients:
-        list_of_ingredients.append(ingr)
-    return render_template("dish.html", dish=dish, id=d_id, list_of_ingredients=list_of_ingredients)
+        p_id = ingr.product_id
+        p = Product.query.get(p_id)
+        string_to_print = '{} - {} gramów'.format(p.name, ingr.amount)
+        to_print.append(string_to_print)
+    return render_template("dish.html", dish=dish, id=d_id, to_print=to_print)
 
 
 @app.route('/list_of_dishes', methods=['GET'])

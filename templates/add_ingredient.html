@@ -10,8 +10,11 @@
         <label for="ilosc"> Ilość: </label>
         <input type="number" name="ilosc"><br>
         <label for="product"> Produkt: </label>
-        <input type="number" name="product"><br>
-
+        <select name="product">
+            {% for p in products_list %}
+                <option value={{p['id']}}>{{p['name']}}</option>
+            {% endfor %}
+        </select>
 
 
 
