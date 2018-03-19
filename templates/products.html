@@ -3,13 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>products</title>
+    <link rel="stylesheet" href="static/css/bootstrap.css">
 </head>
 <body>
+<div class="container">
 
 <h1>Lista produktów:</h1>
 
 
-<table border>
+<table class="table table-dark">
     <tr>
         <th> nazwa </th>
         <th> kalorie </th>
@@ -38,8 +40,10 @@
 <h1>Dodaj nowy produkt:</h1>
 
 <form action="/products" method="post">
+    <div class="form-group">
         <label for="nazwa"> Nazwa: </label>
-        <input type="text" name="nazwa"><br>
+        <input class="form-control" type="text" name="nazwa"><br>
+    </div>
         <label for="kalorie"> Kalorie (na 100 g): </label>
         <input type="number" name = "kalorie"><br>
         <label for="bialko"> Białko (na 100 g): </label>
@@ -51,5 +55,7 @@
         <button type="submit">Wyślij</button>
 </form>
 
+</div>
 </body>
+
 </html>

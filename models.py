@@ -74,8 +74,8 @@ class Ingredient(db.Model):
     product_id = Column(Integer, ForeignKey('products.id'))
     dish_id = Column(Integer, ForeignKey('dish.id'))
 
-    def __repr__(self):
-        return "{} g produktu {}".format(self.amount, self.product_id.name)
+    # def __repr__(self):
+    #     return "{} - {} g".format(self.product_id.name, self.amount)
 
 
 class Dish(db.Model):

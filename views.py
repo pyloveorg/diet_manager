@@ -76,19 +76,23 @@ def new_dish():
 def new_ingredient(d_id):
     if request.method == "POST":
         amount = request.form.get("ilosc")
-        product = request.form.get("produkt")
+        product = request.form.get("product")
         dish_id = d_id
         ingredient_new = Ingredient(amount=amount, dish_id=dish_id, product_id=product)
         db.session.add(ingredient_new)
         db.session.commit()
-        link_name = '/dish/' + str(d_id) + '/add/ingredient'
-        return redirect(link_name)
-    return render_template("add_ingredient.html")
+        link_name_1 = '/dish/' + str(dish_id) + '/add/ingredient'
+        return redirect(link_name_1)
+    return render_template("add_ingredient.html", dish_id=d_id)
 
 
-@app.route('/dish', methods=['GET', 'POST'])
-def dish():
-    pass
+@app.route('/dish/<d_id>', methods=['GET', 'POST'])
+def dish_data(d_id):
+    dish = Dish.query.get(d_id)
+    list_of_ingredients = []
+    for ingr in dish.ingredients:
+        list_of_ingredients.append(ingr)
+    return render_template("dish.html", dish=dish, id=d_id, list_of_ingredients=list_of_ingredients)
 
 
 @app.route('/list_of_dishes', methods=['GET'])
