@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>dish</title>
+    <link rel="stylesheet" href="/static/css/bootstrap.css">
 </head>
 <body>
+<div class="container">
 
 <h1> Informacje o potrawie: </h1>
 
@@ -13,16 +15,23 @@
 </h3>
 <br>
 
-składniki:
+<h3> składniki: </h3>
 {% for ingredient in to_print %}
-<ul>{{ingredient}}</ul>
+<ul> {{ingredient}} </ul>
 {% endfor %}
 
+<h3> potrawa waży: </h3>
+<ul> {{amount}} gramów </ul>
+
+<h3> wartości odżywcze na 100 g</h3>
+<ul> {{parameters[0]}} kalorii </ul>
+<ul> {{parameters[1]}} białka </ul>
+<ul> {{parameters[2]}} tłuszczu </ul>
+<ul> {{parameters[3]}} węglowodanów </ul>
+
+ <a href ="/list_of_dishes">Powrót do listy potraw</a></td>
 
 
-
-
-
-
+</div>
 </body>
 </html>

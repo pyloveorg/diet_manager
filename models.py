@@ -88,5 +88,39 @@ class Dish(db.Model):
     __tablename__ = 'dish'
     id = Column(Integer, autoincrement=True, primary_key=True)
     name = Column(String(50), unique=True)
-    # ingredient_id = Column(Integer, ForeignKey('ingredients.id'))
     ingredients = relationship("Ingredient")
+
+    def count_weight(self):
+        """
+        method count_weight is used to count the total weight of the Dish
+        by adding the amounts of all the ingredients
+        :return: float
+        """
+        amount = 0
+        for ingredient in self.ingredients:
+            amount += ingredient.amount
+        return amount
+
+    def count_parameters(self):
+        """
+        method count_parameters is used to count how much calories, protein, fat and carbohydrates
+        contains 100 g of the Dish
+        :return: tuple (calories, protein, fat, carbohydrates)
+        """
+        calories = 0
+        protein = 0
+        fat = 0
+        carbohydrates = 0
+        for ingredient in self.ingredients:
+            p = Product.query.get(ingredient.product_id)
+            calories += p.calories*ingredient.amount/100
+            protein += p.protein*ingredient.amount/100
+            fat += p.fat*ingredient.amount/100
+            carbohydrates += p.carbohydrates*ingredient.amount/100
+        calories = round(calories*100/self.count_weight(), 2)
+        protein = round(protein*100/self.count_weight(), 2)
+        fat = round(fat*100/self.count_weight(), 2)
+        carbohydrates = round(carbohydrates*100/self.count_weight(), 2)
+        return calories, protein, fat, carbohydrates
+
+
