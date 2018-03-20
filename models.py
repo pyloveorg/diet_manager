@@ -8,7 +8,9 @@ from sqlalchemy import Column, ForeignKey
 from sqlalchemy.types import Integer
 from sqlalchemy.types import String
 from sqlalchemy.types import Boolean
+from sqlalchemy.types import Date
 from sqlalchemy.types import Float
+
 
 from main import db
 
@@ -123,4 +125,31 @@ class Dish(db.Model):
         carbohydrates = round(carbohydrates*100/self.count_weight(), 2)
         return calories, protein, fat, carbohydrates
 
-
+#
+# class Portion(db.Model):
+#     """
+#     class Portion says about the amount of the dish that has been eaten by the User during one Meal
+#    :type dish_id : Dish
+#    :type amount : float
+#    """
+#
+#     __tablename__ = 'portion'
+#     id = Column(Integer, autoincrement=True, primary_key=True)
+#     amount = Column(Float)
+#     dish_id = Column(Integer, ForeignKey('dish.id'))
+#     meal_id = Column(Integer, ForeignKey('meal.id'))
+#
+#
+# class DailyMeals(db.Model):
+#     """
+#     class DailyMeals is used to present the list of all the Portions of the Dish that had been
+#     eaten by the User during one day
+#     :type date : datetime
+#     :type user : User
+#     """
+#
+#     __tablename__ = 'meal'
+#     id = Column(Integer, autoincrement=True, primary_key=True)
+#     date = Column(Date)
+#     portions = relationship("Portion")
+#
