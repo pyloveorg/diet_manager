@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>dodawanie posiłków</title>
+    <link rel="stylesheet" href="/static/css/bootstrap.css">
+</head>
+<body>
+<div class="container">
+
+<h3> posiłki w dniu {{meal['date']}}: </h3>
+{% for portion in to_print %}
+<ul> {{portion}} </ul>
+{% endfor %}
+
+<h3> dodaj nowy posiłek</h3>
+<form action="/meal/{{meal_id}}/add/portion" method="post">
+        <label for="ilosc"> Ilość: </label>
+        <input type="number" name="ilosc"><br>
+        <label for="dish"> Potrawa: </label>
+        <select name="dish">
+            {% for d in dish_list %}
+                <option value={{d['id']}}>{{d['name']}}</option>
+            {% endfor %}
+        </select>
+
+    <button type="submit">Dodaj</button>
+</form>
+
+    <a href ="/list_of_dishes">Gotowe</a>
+
+<br>
+<br>
+<h3> Czy w naszej bazie danych brakuje potrawy, którą właśnie zjadłeś? </h3>
+    <a href ="/dish/add">Dodaj</a>
+
+</div>
+</body>
+</html>

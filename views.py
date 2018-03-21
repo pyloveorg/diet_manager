@@ -4,7 +4,7 @@ from main import app
 from main import db
 from main import bcrypt
 from main import lm
-from models import Product, Dish, Ingredient
+from models import Product, Dish, Ingredient, DailyMeals, Portion
 
 from flask import render_template, request, redirect
 
@@ -105,10 +105,60 @@ def dish_data(d_id):
         to_print.append(string_to_print)
         amount = dish.count_weight()
         parameters = dish.count_parameters()
-    return render_template("dish.html", dish=dish, id=d_id, to_print=to_print, amount=amount, parameters = parameters)
+    return render_template("dish.html", dish=dish, id=d_id, to_print=to_print, amount=amount, parameters=parameters)
 
 
 @app.route('/list_of_dishes', methods=['GET'])
 def dishes():
     dishes_list = Dish.query.order_by(Dish.name).all()
     return render_template("list_of_dishes.html", list=dishes_list)
+
+
+@app.route('/meal/add', methods=['GET', 'POST'])
+def new_meal():
+    if request.method == "POST":
+        date = request.form.get("data")
+        # db_date =
+        meal_new = DailyMeals(date=date)
+        db.session.add(meal_new)
+        db.session.commit()
+        m_id = meal_new.id
+        link_name = '/meal/' + str(m_id) + '/add/portion'
+        return redirect(link_name)
+    return render_template("add_meal.html")
+
+
+@app.route('/meal/<m_id>/add/portion', methods=['GET', 'POST'])
+def new_portion(m_id):
+    dish_list = Dish.query.order_by(Dish.name).all()
+    meal = DailyMeals.query.get(m_id)
+    to_print = []
+    for portion in meal.portions:
+        d_id = portion.dish_id
+        d = Dish.query.get(d_id)
+        string_to_print = '{} - {} gramów'.format(d.name, portion.amount)
+        to_print.append(string_to_print)
+    if request.method == "POST":
+        amount = request.form.get("ilosc")
+        dish = request.form.get("dish")
+        meal_id = m_id
+        portion_new = Portion(amount=amount, dish_id=dish, meal_id=meal_id)
+        db.session.add(portion_new)
+        db.session.commit()
+        link_name_1 = '/meal/' + str(meal_id) + '/add/portion'
+        return redirect(link_name_1)
+    return render_template("add_portion.html", meal_id=m_id, dish_list=dish_list, to_print=to_print, meal=meal)
+
+
+@app.route('/meal/<m_id>', methods=['GET', 'POST'])
+def meal_data(m_id):
+    meal = DailyMeals.query.get(m_id)
+    to_print = []
+    for portion in meal.portions:
+        d_id = portion.dish_id
+        d = Dish.query.get(d_id)
+        string_to_print = '{} - {} gramów'.format(d.name, portion.amount)
+        to_print.append(string_to_print)
+        parameters = meal.count_daily_parameters()
+
+    return render_template("meal.html", meal=meal, id=m_id, to_print=to_print, parameters=parameters)

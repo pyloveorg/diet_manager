@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>meal</title>
+    <link rel="stylesheet" href="/static/css/bootstrap.css">
+</head>
+<body>
+<div class="container">
+
+<h1> posiłki z dnia {{meal['date']}}: </h1>
+
+<br>
+
+<h3> potrawy zjedzone w dniu dzisiejszym: </h3>
+{% for portion in to_print %}
+<ul> {{portion}} </ul>
+{% endfor %}
+
+<h3> wartości odżywcze zjedzonych potraw: </h3>
+
+<ul> {{parameters[0]}} gramów </ul>
+<ul> {{parameters[1]}} kalorii </ul>
+<ul> {{parameters[2]}} białka </ul>
+<ul> {{parameters[3]}} tłuszczu </ul>
+<ul> {{parameters[4]}} węglowodanów </ul>
+
+</div>
+</body>
+</html>
