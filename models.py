@@ -55,10 +55,10 @@ class Product(db.Model):
     __tablename__ = 'products'
     id = Column(Integer, autoincrement=True, primary_key=True)
     name = Column(String(50), unique=True)
-    calories = Column(Float)
-    protein = Column(Float)
-    fat = Column(Float)
-    carbohydrates = Column(Float)
+    calories = Column(Float, nullable=False)
+    protein = Column(Float, nullable=False)
+    fat = Column(Float, nullable=False)
+    carbohydrates = Column(Float, nullable=False)
 
     def __repr__(self):
         return "{}: {} kalorii, {} białka, {} tłuszczy, {} węglowodanów". \
@@ -74,7 +74,7 @@ class Ingredient(db.Model):
 
     __tablename__ = 'ingredients'
     id = Column(Integer, autoincrement=True, primary_key=True)
-    amount = Column(Float)
+    amount = Column(Float, nullable=False)
     product_id = Column(Integer, ForeignKey('products.id'))
     dish_id = Column(Integer, ForeignKey('dish.id'))
 
@@ -91,7 +91,7 @@ class Dish(db.Model):
 
     __tablename__ = 'dish'
     id = Column(Integer, autoincrement=True, primary_key=True)
-    name = Column(String(50), unique=True)
+    name = Column(String(50), unique=True, nullable=False)
     ingredients = relationship("Ingredient")
 
     def count_weight(self):
@@ -137,7 +137,7 @@ class Portion(db.Model):
 
     __tablename__ = 'portion'
     id = Column(Integer, autoincrement=True, primary_key=True)
-    amount = Column(Float)
+    amount = Column(Float, nullable=False)
     dish_id = Column(Integer, ForeignKey('dish.id'))
     meal_id = Column(Integer, ForeignKey('meal.id'))
 

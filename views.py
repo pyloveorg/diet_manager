@@ -162,3 +162,9 @@ def meal_data(m_id):
         parameters = meal.count_daily_parameters()
 
     return render_template("meal.html", meal=meal, id=m_id, to_print=to_print, parameters=parameters)
+
+
+@app.route('/daily_meals', methods=['GET'])
+def list_of_meals():
+    meals_list = DailyMeals.query.order_by(DailyMeals.date).all()
+    return render_template("list_of_meals.html", list=meals_list)
