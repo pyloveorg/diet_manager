@@ -1,6 +1,6 @@
 from sqlalchemy.orm import relationship
 
-__author__ = 'Piotr Dyba'
+__author__ = ''
 
 from flask_login import UserMixin
 
@@ -10,6 +10,8 @@ from sqlalchemy.types import String
 from sqlalchemy.types import Boolean
 from sqlalchemy.types import Date
 from sqlalchemy.types import Float
+
+from werkzeug.security import generate_password_hash, check_password_hash
 
 from main import db
 
@@ -22,11 +24,11 @@ class User(db.Model, UserMixin):
     id = Column(Integer, autoincrement=True, primary_key=True)
     active = Column(Boolean, default=True)
     email = Column(String(200), unique=True)
-    password = Column(String(200), default='')
+    password = Column(String(200), default='') # czy na pewno powinno być w bazie?
     admin = Column(Boolean, default=False)
-
-    # weight = Column(Integer, default=0)
-    # height = Column(Integer, default=0)
+    password_hash = db.Column(db.String(128))
+    weight = Column(Integer, default=0)
+    height = Column(Integer, default=0)
 
     def is_active(self):
         """
@@ -40,6 +42,11 @@ class User(db.Model, UserMixin):
         """
         return self.admin
 
+    def set_password(self, password):
+        self.password_hash = generate_password_hash(password)
+
+    def check_password(self, password):
+        return check_password_hash(self.password_hash, password)
 
 class Product(db.Model):
     """
