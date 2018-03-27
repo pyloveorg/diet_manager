@@ -19,16 +19,25 @@ from main import db
 class User(db.Model, UserMixin):
     """
     User model for reviewers.
+    :type id: int, autoincrement
+    :type email: email, unique
+    :type name: str
+    :type password_hash: str
+    :type weight: int
+    :type height: int
+    :type active: bool
+    :type admin: bool
     """
     __tablename__ = 'user'
     id = Column(Integer, autoincrement=True, primary_key=True)
-    active = Column(Boolean, default=True)
     email = Column(String(200), unique=True)
-    password = Column(String(200), default='') # czy na pewno powinno być w bazie?
-    admin = Column(Boolean, default=False)
-    password_hash = db.Column(db.String(128))
+    name = Column(String(20))
+    password_hash = db.Column(db.String(128), default="")
     weight = Column(Integer, default=0)
     height = Column(Integer, default=0)
+    active = Column(Boolean, default=True)
+    # password = Column(String(200), default='') # czy na pewno powinno być w bazie?
+    admin = Column(Boolean, default=False)
 
     def is_active(self):
         """
@@ -43,10 +52,22 @@ class User(db.Model, UserMixin):
         return self.admin
 
     def set_password(self, password):
+        """
+        Generates new password hash for new user
+        :param password:
+        :return: hashed password
+        """
         self.password_hash = generate_password_hash(password)
 
     def check_password(self, password):
+        """
+        Checks if the password is correct by comparing hashed password from the database
+        with the password written by the user
+        :param password:
+        :return:
+        """
         return check_password_hash(self.password_hash, password)
+
 
 class Product(db.Model):
     """

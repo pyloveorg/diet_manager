@@ -15,8 +15,8 @@
 
 <h3> dodaj nowy posiłek</h3>
 <form action="/meal/{{meal_id}}/add/portion" method="post">
-        <label for="ilosc"> Ilość: </label>
-        <input type="number" name="ilosc"><br>
+        <label for="ilosc"> Ilość (w gramach): </label>
+        <input type="number" required = "required" name="ilosc"><br>
         <label for="dish"> Potrawa: </label>
         <select name="dish">
             {% for d in dish_list %}

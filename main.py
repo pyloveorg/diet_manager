@@ -1,4 +1,3 @@
-__author__ = 'Piotr Dyba'
 
 from os import path
 
@@ -23,4 +22,5 @@ app.static_path = path.join(path.abspath(__file__), 'static')
 
 if __name__ == '__main__':
     from views import *
+    app.secret_key = 'my_secret_key'
     app.run(debug=True)

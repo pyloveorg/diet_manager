@@ -1,4 +1,3 @@
-__author__ = 'Piotr Dyba'
 
 from sqlalchemy import create_engine
 from main import db, bcrypt
@@ -10,14 +9,14 @@ def db_start():
     db.create_all()
     db.session.commit()
     user = models.User()
-    user.username = "piotr"
-    # user.password = bcrypt.generate_password_hash('pppp1234')
-    user.email = 'piotr@dyba.com.pl'
+    user.name = "krystyna"
+    user.email = 'mariquita1@wp.pl'
+    user.set_password('superhaslo')
+    user.weight = 50
+    user.height = 150
     user.admin = True
-    user.poweruser = True
     db.session.add(user)
     db.session.commit()
-
 
 
 if __name__ == '__main__':

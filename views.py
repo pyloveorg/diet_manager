@@ -4,9 +4,9 @@ from main import app
 from main import db
 from main import bcrypt
 from main import lm
-from models import Product, Dish, Ingredient, DailyMeals, Portion
+from models import Product, Dish, Ingredient, DailyMeals, Portion, User
 
-from flask import render_template, request, redirect
+from flask import render_template, request, redirect, flash
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -168,3 +168,25 @@ def meal_data(m_id):
 def list_of_meals():
     meals_list = DailyMeals.query.order_by(DailyMeals.date).all()
     return render_template("list_of_meals.html", list=meals_list)
+
+
+@lm.user_loader
+def load_user(uid):
+    return User.query.get(int(uid))
+
+
+@app.route('/user/register', methods=['GET', 'POST'])
+def register_user():
+    if request.method == 'POST':
+        name = request.form.get('name')
+        email = request.form.get('email')
+        password = request.form.get('password')
+        weight = request.form.get('weight')
+        height = request.form.get('height')
+        new_user = User(name=name, email=email, weight=weight, height=height)
+        new_user.set_password(password)
+        flash('New user registered')
+        db.session.add(new_user)
+        db.session.commit()
+        return redirect('/list_of_dishes')
+    return render_template('user_register.html')
