@@ -1,11 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>meal</title>
-    <link rel="stylesheet" href="/static/css/bootstrap.css">
-</head>
-<body>
+
+{% extends "_base.html" %}
+
+{% block content %}
+
 <div class="container">
 
 <h1> posiłki z dnia {{meal['date']}}: </h1>
@@ -31,5 +28,4 @@
 <a href ="/meal/{{id}}/add/portion">dodaj</a>
 
 </div>
-</body>
-</html>
+{% enblock %}

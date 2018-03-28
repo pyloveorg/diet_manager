@@ -1,11 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>product</title>
-</head>
-<body>
 
+{% extends "_base.html" %}
+
+{% block content %}
 <form action="/product/{{ id }}/edit" method="post">
         <label for="nazwa"> Nazwa: </label>
         <input type="text" name="nazwa" value = {{product['name']}}><br>
@@ -19,6 +15,4 @@
         <input type="number" name = "weglowodany" value = {{product['carbohydrates']}}><br>
         <button type="submit">Wyślij</button>
 </form>
-
-</body>
-</html>
+{% enblock %}

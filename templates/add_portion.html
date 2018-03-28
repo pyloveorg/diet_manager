@@ -1,11 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>dodawanie posiłków</title>
-    <link rel="stylesheet" href="/static/css/bootstrap.css">
-</head>
-<body>
+
+{% extends "_base.html" %}
+
+{% block content %}
 <div class="container">
 
 <h3> posiłki w dniu {{meal['date']}}: </h3>
@@ -35,5 +31,4 @@
     <a href ="/dish/add">Dodaj</a>
 
 </div>
-</body>
-</html>
+{% endblock %}
