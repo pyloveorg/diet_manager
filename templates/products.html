@@ -1,60 +1,57 @@
-
 {% extends "_base.html" %}
 
 {% block content %}
 
 <div class="container">
 
-<h1>Lista produktów:</h1>
+    <h1>Lista produktów:</h1>
 
 
-<table class="table table-dark">
-    <tr>
-        <th> nazwa </th>
-        <th> kalorie </th>
-        <th> białko </th>
-        <th> tłuszcze </th>
-        <th> węglowodany </th>
-        <th> szczegóły </th>
+    <table class="table table-dark">
+        <tr>
+            <th> nazwa</th>
+            <th> kalorie</th>
+            <th> białko</th>
+            <th> tłuszcze</th>
+            <th> węglowodany</th>
+            <th> szczegóły</th>
 
 
-    </tr>
-    {% for product in products %}
-    <tr>
-        <td> {{ product['name'] }} </td>
-        <td> {{ product['calories'] }} </td>
-        <td> {{ product['protein'] }} </td>
-        <td> {{ product['fat'] }} </td>
-        <td> {{ product['carbohydrates'] }} </td>
-        <td> <a href="product/{{ product['id']}}">kliknij</a></td>
+        </tr>
+        {% for product in products %}
+        <tr>
+            <td> {{ product['name'] }}</td>
+            <td> {{ product['calories'] }}</td>
+            <td> {{ product['protein'] }}</td>
+            <td> {{ product['fat'] }}</td>
+            <td> {{ product['carbohydrates'] }}</td>
+            <td><a href="product/{{ product['id']}}">kliknij</a></td>
+        </tr>
+        {% endfor %}
+    </table>
 
 
-    </tr>
-    {% endfor %}
-</table>
+    <h1>Dodaj nowy produkt:</h1>
 
-
-<h1>Dodaj nowy produkt:</h1>
-
-<form action="/products" method="post">
-    <div class="form-group">
-        <label for="nazwa"> Nazwa: </label>
-        <input class="form-control" type="text" required = "required" name="nazwa"><br>
-    </div>
+    <form action="/products" method="post">
+        <div class="form-group">
+            <label for="nazwa"> Nazwa: </label>
+            <input class="form-control" type="text" required="required" name="nazwa"><br>
+        </div>
         <label for="kalorie"> Kalorie (na 100 g): </label>
-        <input type="number" required = "required" name = "kalorie"><br>
+        <input type="number" step="0.01" min="0" required="required" name="kalorie"><br>
         <label for="bialko"> Białko (na 100 g): </label>
-        <input type="number" required = "required" name = "bialko"><br>
+        <input type="number" step="0.01" min="0" required="required" name="bialko"><br>
         <label for="tluszcze"> Tłuszcze (na 100 g): </label>
-        <input type="number" required = "required" name = "tluszcze"><br>
+        <input type="number" step="0.01" min="0" required="required" name="tluszcze"><br>
         <label for="weglowodany"> Węglowodany (na 100 g): </label>
-        <input type="number" required = "required" name = "weglowodany"><br>
+        <input type="number" step="0.01" min="0" required="required" name="weglowodany"><br>
         <button type="submit">Wyślij</button>
-</form>
+    </form>
 
     <br>
-<h1> Lista potraw:</h1>
- <a href ="/list_of_dishes">kliknij</a>
+    <h1> Lista potraw:</h1>
+    <a href="/list_of_dishes">kliknij</a>
 
 </div>
 {% endblock %}
