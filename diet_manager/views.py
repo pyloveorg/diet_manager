@@ -1,10 +1,9 @@
 #!/usr/bin/env python
 # encoding: utf-8
-from main import app
-from main import db
-from main import bcrypt
-from main import lm
-from models import Product, Dish, Ingredient, DailyMeals, Portion, User
+from diet_manager import app
+from diet_manager import db
+from diet_manager import lm
+from diet_manager.models import Product, Dish, Ingredient, DailyMeals, Portion, User
 
 from flask import render_template, request, redirect, flash
 
