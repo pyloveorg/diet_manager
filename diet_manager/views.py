@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 # encoding: utf-8
+from flask_login import current_user, login_user
+
 from diet_manager import app
 from diet_manager import db
 from diet_manager import lm
@@ -189,3 +191,23 @@ def register_user():
         db.session.commit()
         return redirect('/list_of_dishes')
     return render_template('user_register.html')
+
+
+@app.route('/user/login', methods = ['GET', 'POST'])
+def login_user_dm():
+    if current_user.is_authenticated:
+        return redirect('/daily_meals')
+    if request.method == 'POST':
+        email = request.form.get('email')
+        password = request.form.get('password')
+        user = User.query.filter(User.email == email).first()
+        if user.check_password(password):
+            login_user(user)
+            flash('Użytkownik zalogowany')
+            return redirect('/daily_meals')
+        flash('Zły e-mail lub hasło')
+        return redirect('/user/login')
+    return render_template('user_login.html')
+
+
+

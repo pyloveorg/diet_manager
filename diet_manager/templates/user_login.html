@@ -1,13 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>User login</title>
-</head>
-<body>
+{% extends "_base.html" %}
 
+{% block content %}
 
+<h1>Logowanie:</h1>
 
-
-</body>
-</html>
+<form action="/user/login" method="post">
+        <label for="email"> E-mail: </label>
+        <input type="text" required = "required" name="email"><br>
+        <label for="password"> Hasło: </label>
+        <input type="password" required = "required" name="password"><br>
+        <button type="submit">Zaloguj</button>
+</form>
+{% endblock %}
