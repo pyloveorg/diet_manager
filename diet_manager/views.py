@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # encoding: utf-8
-from flask_login import current_user, login_user
+from flask_login import current_user, login_user, logout_user
 
 from diet_manager import app
 from diet_manager import db
@@ -209,5 +209,11 @@ def login_user_dm():
         return redirect('/user/login')
     return render_template('user_login.html')
 
+
+@app.route('/logout')
+def logout():
+    logout_user()
+    flash('Użytkownik wylogowany')
+    return redirect('user/login')
 
 

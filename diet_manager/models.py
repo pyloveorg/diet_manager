@@ -36,7 +36,6 @@ class User(db.Model, UserMixin):
     weight = Column(Integer, default=0)
     height = Column(Integer, default=0)
     active = Column(Boolean, default=True)
-    # password = Column(String(200), default='') # czy na pewno powinno być w bazie?
     admin = Column(Boolean, default=False)
 
     def is_active(self):
