@@ -119,7 +119,6 @@ def dishes():
 def new_meal():
     if request.method == "POST":
         date = request.form.get("data")
-        # db_date =
         meal_new = DailyMeals(date=date)
         db.session.add(meal_new)
         db.session.commit()
@@ -189,7 +188,7 @@ def register_user():
         flash('New user registered')
         db.session.add(new_user)
         db.session.commit()
-        return redirect('/list_of_dishes')
+        return redirect('/daily_meals')
     return render_template('user_register.html')
 
 
