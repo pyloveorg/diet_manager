@@ -38,8 +38,11 @@ def products():
 def product_data(ident):
     product = Product.query.get(ident)
     if request.method == "POST":
-        db.session.delete(product)
-        db.session.commit()
+        if current_user.admin:
+            db.session.delete(product)
+            db.session.commit()
+        else:
+            flash('Nie masz uprawnień do usuwania produktów')
         return redirect("/products")
 
     return render_template("product.html", product=product, id=ident)
