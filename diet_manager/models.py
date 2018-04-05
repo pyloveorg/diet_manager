@@ -4,7 +4,7 @@ __author__ = ''
 
 from flask_login import UserMixin
 
-from sqlalchemy import Column, ForeignKey
+from sqlalchemy import Column, ForeignKey, UniqueConstraint
 from sqlalchemy.types import Integer
 from sqlalchemy.types import String
 from sqlalchemy.types import Boolean
@@ -183,6 +183,7 @@ class DailyMeals(db.Model):
     date = Column(String)
     user_id = Column(Integer, ForeignKey('user.id'))
     portions = relationship("Portion")
+    __table_args__ = (UniqueConstraint('user_id', 'date', name='date'),)
 
     def count_daily_parameters(self):
         """
