@@ -179,6 +179,7 @@ class DailyMeals(db.Model):
     __tablename__ = 'meal'
     id = Column(Integer, autoincrement=True, primary_key=True)
     date = Column(String)
+    user_id = Column(Integer, ForeignKey('user.id'))
     portions = relationship("Portion")
 
     def count_daily_parameters(self):

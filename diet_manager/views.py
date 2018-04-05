@@ -122,7 +122,8 @@ def dishes():
 def new_meal():
     if request.method == "POST":
         date = request.form.get("data")
-        meal_new = DailyMeals(date=date)
+        u_id = current_user.id
+        meal_new = DailyMeals(date=date, user_id=u_id)
         db.session.add(meal_new)
         db.session.commit()
         m_id = meal_new.id
