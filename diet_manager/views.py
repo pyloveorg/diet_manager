@@ -181,8 +181,8 @@ def meal_data(m_id):
 @app.route('/daily_meals', methods=['GET'])
 @login_required
 def list_of_meals():
-    meals_list = DailyMeals.query.order_by(DailyMeals.date).all()
-    return render_template("list_of_meals.html", list=meals_list)
+    meals_list = DailyMeals.query.filter(DailyMeals.user_id == current_user.id).order_by(DailyMeals.date).all()
+    return render_template("list_of_meals.html", list=meals_list, current_user=current_user)
 
 
 @lm.user_loader

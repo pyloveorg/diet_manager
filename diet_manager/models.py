@@ -203,4 +203,4 @@ class DailyMeals(db.Model):
             protein += d.count_parameters()[1] * portion.amount / 100
             fat += d.count_parameters()[2] * portion.amount / 100
             carbohydrates += d.count_parameters()[3] * portion.amount / 100
-        return amount, calories, protein, fat, carbohydrates
+        return amount, round(calories, 2), round(protein, 2), round(fat, 2), round(carbohydrates, 2)
