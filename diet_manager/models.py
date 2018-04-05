@@ -37,6 +37,7 @@ class User(db.Model, UserMixin):
     height = Column(Integer, default=0)
     active = Column(Boolean, default=True)
     admin = Column(Boolean, default=False)
+ #   patron = Column(Boolean, default=False)
 
     def is_active(self):
         """
@@ -174,6 +175,7 @@ class DailyMeals(db.Model):
     class DailyMeals is used to present the list of all the Portions of the Dish that had been
     eaten by the User during one day
     :type date : datetime
+    :type user_id : User
     """
 
     __tablename__ = 'meal'

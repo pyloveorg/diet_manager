@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # encoding: utf-8
-from flask_login import current_user, login_user, logout_user
+from flask_login import current_user, login_user, logout_user, login_required
 
 from diet_manager import app
 from diet_manager import db
@@ -16,6 +16,7 @@ def info():
 
 
 @app.route('/products', methods=['GET', 'POST'])
+@login_required
 def products():
     if request.method == "POST":
         name = request.form.get("nazwa")
@@ -35,6 +36,7 @@ def products():
 
 
 @app.route('/product/<ident>', methods=['GET', 'POST'])
+@login_required
 def product_data(ident):
     product = Product.query.get(ident)
     if request.method == "POST":
@@ -49,6 +51,7 @@ def product_data(ident):
 
 
 @app.route('/product/<ident>/edit', methods=['GET', 'POST'])
+@login_required
 def product_edit(ident):
     edited_product = Product.query.get(ident)
     if request.method == "POST":
@@ -64,6 +67,7 @@ def product_edit(ident):
 
 
 @app.route('/dish/add', methods=['GET', 'POST'])
+@login_required
 def new_dish():
     if request.method == "POST":
         name = request.form.get("nazwa")
@@ -77,6 +81,7 @@ def new_dish():
 
 
 @app.route('/dish/<d_id>/add/ingredient', methods=['GET', 'POST'])
+@login_required
 def new_ingredient(d_id):
     products_list = Product.query.order_by(Product.name).all()
     dish = Dish.query.get(d_id)
@@ -99,6 +104,7 @@ def new_ingredient(d_id):
 
 
 @app.route('/dish/<d_id>', methods=['GET', 'POST'])
+@login_required
 def dish_data(d_id):
     dish = Dish.query.get(d_id)
     to_print = []
@@ -113,12 +119,14 @@ def dish_data(d_id):
 
 
 @app.route('/list_of_dishes', methods=['GET'])
+@login_required
 def dishes():
     dishes_list = Dish.query.order_by(Dish.name).all()
     return render_template("list_of_dishes.html", list=dishes_list)
 
 
 @app.route('/meal/add', methods=['GET', 'POST'])
+@login_required
 def new_meal():
     if request.method == "POST":
         date = request.form.get("data")
@@ -133,6 +141,7 @@ def new_meal():
 
 
 @app.route('/meal/<m_id>/add/portion', methods=['GET', 'POST'])
+@login_required
 def new_portion(m_id):
     dish_list = Dish.query.order_by(Dish.name).all()
     meal = DailyMeals.query.get(m_id)
@@ -155,6 +164,7 @@ def new_portion(m_id):
 
 
 @app.route('/meal/<m_id>', methods=['GET', 'POST'])
+@login_required
 def meal_data(m_id):
     meal = DailyMeals.query.get(m_id)
     to_print = []
@@ -169,6 +179,7 @@ def meal_data(m_id):
 
 
 @app.route('/daily_meals', methods=['GET'])
+@login_required
 def list_of_meals():
     meals_list = DailyMeals.query.order_by(DailyMeals.date).all()
     return render_template("list_of_meals.html", list=meals_list)

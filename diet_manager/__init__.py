@@ -18,6 +18,7 @@ migrate = Migrate(app, db)
 
 lm = LoginManager()
 lm.init_app(app)
+lm.login_view = 'login_user_dm'
 
 # bcrypt = Bcrypt()
 
