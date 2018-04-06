@@ -183,7 +183,7 @@ class DailyMeals(db.Model):
     date = Column(String)
     user_id = Column(Integer, ForeignKey('user.id'))
     portions = relationship("Portion")
-    __table_args__ = (UniqueConstraint('user_id', 'date', name='date'),)
+    __table_args__ = (UniqueConstraint('user_id', 'date', name='user_date'),)
 
     def count_daily_parameters(self):
         """

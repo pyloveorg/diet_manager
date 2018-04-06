@@ -131,6 +131,8 @@ def new_meal():
     if request.method == "POST":
         date = request.form.get("data")
         u_id = current_user.id
+        # if DailyMeals.query.filter(DailyMeals.date == date) and DailyMeals.query.filter(DailyMeals.user_id == current_user.id):
+        #     return redirect('/daily_meals')
         meal_new = DailyMeals(date=date, user_id=u_id)
         db.session.add(meal_new)
         db.session.commit()
@@ -215,6 +217,9 @@ def login_user_dm():
         email = request.form.get('email')
         password = request.form.get('password')
         user = User.query.filter(User.email == email).first()
+        if not user:
+            flash('Nie ma takiego użytkownika w bazie')
+            return redirect('/user/login')
         if user.check_password(password):
             login_user(user)
             flash('Użytkownik zalogowany')
