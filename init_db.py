@@ -14,6 +14,7 @@ def db_start():
     user.weight = 50
     user.height = 150
     user.admin = True
+    user.patron = True
     db.session.add(user)
     db.session.commit()
 
