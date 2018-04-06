@@ -37,7 +37,7 @@ class User(db.Model, UserMixin):
     height = Column(Integer, default=0)
     active = Column(Boolean, default=True)
     admin = Column(Boolean, default=False)
-    #patron = Column(Boolean, default=False)
+    patron = Column(Boolean, default=False)
 
     def is_active(self):
         """

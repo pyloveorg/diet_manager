@@ -6,6 +6,8 @@ from diet_manager.models import User
 
 def db_start():
     create_engine('sqlite:///diet_manager.db', convert_unicode=True)
+    db.create_all()
+    db.session.commit()
 
     user = User()
     user.name = "krystyna"

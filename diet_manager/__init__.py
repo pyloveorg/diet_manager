@@ -1,6 +1,6 @@
 from flask import Flask
 from flask_login import LoginManager
-from flask_migrate import Migrate
+# from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 from os import path
 from config import Config
@@ -14,7 +14,7 @@ db = SQLAlchemy()
 db.app = app
 db.init_app(app)
 
-migrate = Migrate(app, db)
+# migrate = Migrate(app, db)
 
 lm = LoginManager()
 lm.init_app(app)
