@@ -20,9 +20,11 @@
         <li class="nav-item{% if page_id == 'info' %} active{% endif %}">
           <a class="nav-link" href="{{ url_for('info') }}">Info</a>
         </li>
+        {% if current_user.is_anonymous %}
         <li class="nav-item{% if page_id == 'register' %} active{% endif %}">
           <a class="nav-link" href="/user/register">Rejestracja</a>
         </li>
+        {% endif %}
         {% if current_user.is_anonymous %}
         <li class="nav-item{% if page_id == 'login' %} active{% endif %}">
           <a class="nav-link" href="/user/login">Login</a>
