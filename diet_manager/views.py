@@ -180,7 +180,7 @@ def meal_data(m_id):
     return render_template("meal.html", meal=meal, id=m_id, to_print=to_print, parameters=parameters)
 
 
-@app.route('/meal/<m_id>/edit', methods=['GET', 'POST'])
+@app.route('/meal/<m_id>/edit', methods=['GET'])
 @login_required
 def meal_edit(m_id):
     edited_meal = DailyMeals.query.get(m_id)
@@ -194,12 +194,16 @@ def meal_edit(m_id):
         to_print.append(string_to_print)
         list_of_links.append(link)
     n = len(to_print)
-    # if request.method == "POST":
-    #     db.session.delete(portion_to_delete)
-    #     db.session.commit()
-    #     return redirect("/meal/<m_id>")
-
     return render_template("meal_edit.html",n = n, to_print=to_print, links=list_of_links, meal=edited_meal, id=m_id)
+
+
+@app.route('/portion/<p_id>/delete', methods=['GET', 'POST'])
+@login_required
+def portion_delete(p_id):
+    portion_to_delete = Portion.query.get(p_id)
+    db.session.delete(portion_to_delete)
+    db.session.commit()
+    return redirect("/daily_meals")
 
 
 @app.route('/daily_meals', methods=['GET'])
