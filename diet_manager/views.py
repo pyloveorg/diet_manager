@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # encoding: utf-8
 from flask_login import current_user, login_user, logout_user, login_required
+from sqlalchemy.exc import IntegrityError
 
 from diet_manager import app
 from diet_manager import db
@@ -134,11 +135,15 @@ def new_meal():
         # if DailyMeals.query.filter(DailyMeals.date == date) and DailyMeals.query.filter(DailyMeals.user_id == current_user.id):
         #     return redirect('/daily_meals')
         meal_new = DailyMeals(date=date, user_id=u_id)
-        db.session.add(meal_new)
-        db.session.commit()
-        m_id = meal_new.id
-        link_name = '/meal/' + str(m_id) + '/add/portion'
-        return redirect(link_name)
+        try:
+            db.session.add(meal_new)
+            db.session.commit()
+            m_id = meal_new.id
+            link_name = '/meal/' + str(m_id) + '/add/portion'
+            return redirect(link_name)
+        except IntegrityError:
+            flash('Już wpisywałeś posiłki w tym dniu. Jesli chcesz dodać coś nowego, to wybierz datę z listy')
+            return redirect('/daily_meals')
     return render_template("add_meal.html")
 
 
