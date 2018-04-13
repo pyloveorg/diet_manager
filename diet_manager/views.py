@@ -132,8 +132,6 @@ def new_meal():
     if request.method == "POST":
         date = request.form.get("data")
         u_id = current_user.id
-        # if DailyMeals.query.filter(DailyMeals.date == date) and DailyMeals.query.filter(DailyMeals.user_id == current_user.id):
-        #     return redirect('/daily_meals')
         meal_new = DailyMeals(date=date, user_id=u_id)
         try:
             db.session.add(meal_new)
@@ -199,7 +197,7 @@ def meal_edit(m_id):
         to_print.append(string_to_print)
         list_of_links.append(link)
     n = len(to_print)
-    return render_template("meal_edit.html",n = n, to_print=to_print, links=list_of_links, meal=edited_meal, id=m_id)
+    return render_template("meal_edit.html", n=n, to_print=to_print, links=list_of_links, meal=edited_meal, id=m_id)
 
 
 @app.route('/portion/<p_id>/delete', methods=['GET', 'POST'])
@@ -240,7 +238,7 @@ def register_user():
     return render_template('user_register.html')
 
 
-@app.route('/user/login', methods = ['GET', 'POST'])
+@app.route('/user/login', methods=['GET', 'POST'])
 def login_user_dm():
     if current_user.is_authenticated:
         return redirect('/daily_meals')
@@ -265,5 +263,3 @@ def logout():
     logout_user()
     flash('Użytkownik wylogowany')
     return redirect('user/login')
-
-

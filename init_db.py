@@ -1,7 +1,7 @@
 
 from sqlalchemy import create_engine
 from diet_manager import db
-from diet_manager.models import User
+from diet_manager.models import User, Product
 
 
 def db_start():
@@ -18,6 +18,24 @@ def db_start():
     user.admin = True
     user.patron = True
     db.session.add(user)
+    db.session.commit()
+
+    product = Product()
+    product.name = "jabłko"
+    product.calories = 46
+    product.protein = 0.4
+    product.fat = 0.4
+    product.carbohydrates = 12.1
+    db.session.add(product)
+    db.session.commit()
+
+    product2 = Product()
+    product2.name = "marchew"
+    product2.calories = 27
+    product2.protein = 1
+    product2.fat = 0.2
+    product2.carbohydrates = 8.7
+    db.session.add(product2)
     db.session.commit()
 
 
