@@ -5,6 +5,14 @@
 <div class="container">
 
 <h1>   Cześć {{current_user.name}} </h1>
+{% if list | length == 0 %}
+
+Nie masz żadnych posiłków na liście.
+Czy chcesz dodać pierwszy posiłek?
+<a href ="/meal/add">Tak</a>
+
+{% else %}
+
 <h1> Lista Twoich posiłków: </h1>
 
 <table border>
@@ -27,6 +35,6 @@
 
 <h3> Czy chcesz dodać posiłki z innego dnia? </h3>
     <a href ="/meal/add">Tak</a>
-
+{% endif %}
 </div>
 {% endblock %}
