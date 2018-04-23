@@ -40,6 +40,11 @@ def products():
 @login_required
 def product_data(ident):
     product = Product.query.get(ident)
+    ingredient_list = Ingredient.query.filter(Ingredient.product_id == product.id).all()
+    dish_list = []
+    for ingredient in ingredient_list:
+        dish = Dish.query.filter(ingredient.dish_id == Dish.id).first()
+        dish_list.append(dish)
     if request.method == "POST":
         if current_user.admin:
             db.session.delete(product)
@@ -48,7 +53,7 @@ def product_data(ident):
             flash('Nie masz uprawnień do usuwania produktów')
         return redirect("/products")
 
-    return render_template("product.html", product=product, id=ident)
+    return render_template("product.html", product=product, id=ident, dish_list=dish_list)
 
 
 @app.route('/product/<ident>/edit', methods=['GET', 'POST'])

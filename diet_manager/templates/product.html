@@ -31,6 +31,9 @@
 
 
 <h1> Lista potraw, w których wykorzystujemy produkt {{ product['name']}}: </h1>
+    {% for dish in dish_list %}
+    <ul><a href="/dish/{{ dish['id']}}">{{dish['name']}}</a></ul>
+    {%endfor%}
 
 <h1> Czy usunąć produkt z listy? </h1>
 <form action='/product/{{ id }}' method="post">
