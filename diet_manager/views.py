@@ -41,10 +41,14 @@ def products():
 def product_data(ident):
     product = Product.query.get(ident)
     ingredient_list = Ingredient.query.filter(Ingredient.product_id == product.id).all()
-    dish_list = []
+    ingredient_id_list = []
     for ingredient in ingredient_list:
-        dish = Dish.query.filter(ingredient.dish_id == Dish.id).first()
-        dish_list.append(dish)
+        ingredient_id_list.append(ingredient.id)
+    dish_list = Dish.query.filter(Dish.id.in_(ingredient_id_list)).all()
+    # dish_list = []
+    # for ingredient in ingredient_list:
+    #     dish = Dish.query.filter(ingredient.dish_id == Dish.id).first()
+    #     dish_list.append(dish)
     if request.method == "POST":
         if current_user.admin:
             db.session.delete(product)
