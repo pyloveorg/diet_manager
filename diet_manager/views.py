@@ -215,6 +215,9 @@ def new_portion(m_id):
     if request.method == "POST":
         amount = request.form.get("ilosc")
         dish = request.form.get("dish")
+        if len(Dish.query.get(dish).ingredients) == 0:
+            flash("Ta potrawa nie ma żadnego składnika. Dodaj składniki.")
+            return redirect("/dish/" + dish + "/add/ingredient")
         meal_id = m_id
         portion_new = Portion(amount=amount, dish_id=dish, meal_id=meal_id)
         db.session.add(portion_new)
