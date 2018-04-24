@@ -135,7 +135,8 @@ def new_ingredient(d_id):
         db.session.commit()
         link_name_1 = '/dish/' + str(dish_id) + '/add/ingredient'
         return redirect(link_name_1)
-    return render_template("add_ingredient.html", dish_id=d_id, products_list=products_list, to_print=to_print)
+    return render_template("add_ingredient.html", dish_id=d_id, products_list=products_list,
+                           to_print=to_print, dish=dish)
 
 
 @app.route('/dish/<d_id>', methods=['GET', 'POST'])

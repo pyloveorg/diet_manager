@@ -4,7 +4,7 @@
 {% block content %}
 <div class="container">
 
-<h3> składniki: </h3>
+<h3> składniki {{dish['name']}}: </h3>
 {% for ingredient in to_print %}
 <ul> {{ingredient}} </ul>
 {% endfor %}
