@@ -75,6 +75,10 @@ def product_data(ident):
 @app.route('/product/<ident>/edit', methods=['GET', 'POST'])
 @login_required
 def product_edit(ident):
+    """
+    user can edit parameters of the product that has id equal to the parameter ident
+    :param ident: int
+    """
     edited_product = Product.query.get(ident)
     if request.method == "POST":
         edited_product.name = request.form.get("nazwa")
@@ -91,6 +95,10 @@ def product_edit(ident):
 @app.route('/dish/add', methods=['GET', 'POST'])
 @login_required
 def new_dish():
+    """
+    user can add new dish (only name)
+    than is redirected to the page where can add ingredients to that dish
+    """
     if request.method == "POST":
         name = request.form.get("nazwa")
         dish_new = Dish(name=name)
@@ -105,6 +113,11 @@ def new_dish():
 @app.route('/dish/<d_id>/add/ingredient', methods=['GET', 'POST'])
 @login_required
 def new_ingredient(d_id):
+    """
+    user adds new ingredients to the dish that has id equal to the parameter d_id
+    there are also displayed already added ingredients
+    :param d_id: int
+    """
     products_list = Product.query.order_by(Product.name).all()
     dish = Dish.query.get(d_id)
     to_print = []
@@ -128,6 +141,11 @@ def new_ingredient(d_id):
 @app.route('/dish/<d_id>', methods=['GET', 'POST'])
 @login_required
 def dish_data(d_id):
+    """
+    user can display all the information about the dish that has id equal to d_id
+    if the dish has no ingredients - user is redirected to the page where he can add ingredients
+    :param d_id: int
+    """
     dish = Dish.query.get(d_id)
     to_print = []
     amount = 0
@@ -148,6 +166,9 @@ def dish_data(d_id):
 @app.route('/list_of_dishes', methods=['GET'])
 @login_required
 def dishes():
+    """
+    user can display the list of all the dishes in the database
+    """
     dishes_list = Dish.query.order_by(Dish.name).all()
     return render_template("list_of_dishes.html", list=dishes_list)
 
@@ -155,6 +176,10 @@ def dishes():
 @app.route('/meal/add', methods=['GET', 'POST'])
 @login_required
 def new_meal():
+    """
+    user creates new day of meals by choosing a date
+    user is redirected to the page where he can add portions of the dish that have been eaten on that day
+    """
     if request.method == "POST":
         date = request.form.get("data")
         u_id = current_user.id
@@ -174,6 +199,11 @@ def new_meal():
 @app.route('/meal/<m_id>/add/portion', methods=['GET', 'POST'])
 @login_required
 def new_portion(m_id):
+    """
+    user adds new portions of dishes that he has eaten during the day (id = m_id)
+    if there are already added portions - they are displayed on the top of the page
+    :param m_id: int
+    """
     dish_list = Dish.query.order_by(Dish.name).all()
     meal = DailyMeals.query.get(m_id)
     to_print = []
@@ -197,6 +227,10 @@ def new_portion(m_id):
 @app.route('/meal/<m_id>', methods=['GET', 'POST'])
 @login_required
 def meal_data(m_id):
+    """
+    user can get information about his daily meal portions (m_id = meal.id)
+    :param m_id: int
+    """
     meal = DailyMeals.query.get(m_id)
     to_print = []
     for portion in meal.portions:
@@ -212,6 +246,11 @@ def meal_data(m_id):
 @app.route('/meal/<m_id>/edit', methods=['GET'])
 @login_required
 def meal_edit(m_id):
+    """
+    user can delete the portion that he did not eat that day (m_id = meal.id)
+    he is redirected to the page portion/<p_id>/delete
+    :param m_id: int
+    """
     edited_meal = DailyMeals.query.get(m_id)
     to_print = []
     list_of_links = []
@@ -229,6 +268,10 @@ def meal_edit(m_id):
 @app.route('/portion/<p_id>/delete', methods=['GET', 'POST'])
 @login_required
 def portion_delete(p_id):
+    """
+    the portion is deleted by the click on the page meal/<m_id>/edit
+    :param p_id: int
+    """
     portion_to_delete = Portion.query.get(p_id)
     db.session.delete(portion_to_delete)
     db.session.commit()
@@ -238,6 +281,9 @@ def portion_delete(p_id):
 @app.route('/daily_meals', methods=['GET'])
 @login_required
 def list_of_meals():
+    """
+    list of dates when user added his meals
+    """
     meals_list = DailyMeals.query.filter(DailyMeals.user_id == current_user.id).order_by(DailyMeals.date).all()
     return render_template("list_of_meals.html", list=meals_list, current_user=current_user)
 
@@ -249,6 +295,9 @@ def load_user(uid):
 
 @app.route('/user/register', methods=['GET', 'POST'])
 def register_user():
+    """
+    new user can be registered (and added to the database) by filling the form
+    """
     if request.method == 'POST':
         name = request.form.get('name')
         email = request.form.get('email')
@@ -266,6 +315,10 @@ def register_user():
 
 @app.route('/user/login', methods=['GET', 'POST'])
 def login_user_dm():
+    """
+    user can log in to the application
+    if user is already logged in - he is redirected to the page with the list of his meals
+    """
     if current_user.is_authenticated:
         return redirect('/daily_meals')
     if request.method == 'POST':
@@ -286,6 +339,9 @@ def login_user_dm():
 
 @app.route('/logout')
 def logout():
+    """
+    user can log out from the application
+    """
     logout_user()
     flash('Użytkownik wylogowany')
     return redirect('user/login')
