@@ -19,6 +19,10 @@ def info():
 @app.route('/products', methods=['GET', 'POST'])
 @login_required
 def products():
+    """
+    if request.method is POST, new product is added to the database
+    if request.method is GET, displays the list of products with the form to add new product
+    """
     if request.method == "POST":
         name = request.form.get("nazwa")
         calories = request.form.get("kalorie")
@@ -42,6 +46,11 @@ def products():
 @app.route('/product/<ident>', methods=['GET', 'POST'])
 @login_required
 def product_data(ident):
+    """
+    displays all the information about the product that has id equal to the parameter ident
+    admin (and only admin) can delete product from the database
+    :param ident: int
+    """
     product = Product.query.get(ident)
     ingredient_list = Ingredient.query.filter(Ingredient.product_id == product.id).all()
     ingredient_id_list = []
