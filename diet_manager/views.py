@@ -25,6 +25,9 @@ def products():
         protein = request.form.get("bialko")
         fat = request.form.get("tluszcze")
         carbohydrates = request.form.get("weglowodany")
+        if float(calories) < 0 or float(protein) < 0 or float(fat) < 0 or float(carbohydrates) < 0:
+            flash("Musisz wpisać dodatnie wartości kalorii, białka, tłuszczy i węglowodanów")
+            return redirect('/products')
         product = Product(name=name, calories=calories, protein=protein,
                           fat=fat, carbohydrates=carbohydrates)
         db.session.add(product)
@@ -118,6 +121,7 @@ def new_ingredient(d_id):
 def dish_data(d_id):
     dish = Dish.query.get(d_id)
     to_print = []
+    amount = 0
     for ingr in dish.ingredients:
         p_id = ingr.product_id
         p = Product.query.get(p_id)
@@ -125,6 +129,10 @@ def dish_data(d_id):
         to_print.append(string_to_print)
         amount = dish.count_weight()
         parameters = dish.count_parameters()
+    if amount == 0:
+        flash('Ta potrawa nie ma żadnych składników. Proszę dodaj składniki.')
+        return redirect('/dish/' + str(d_id) + '/add/ingredient')
+
     return render_template("dish.html", dish=dish, id=d_id, to_print=to_print, amount=amount, parameters=parameters)
 
 
