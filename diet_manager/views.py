@@ -237,13 +237,16 @@ def meal_data(m_id):
     """
     meal = DailyMeals.query.get(m_id)
     to_print = []
+    parameters = 0
     for portion in meal.portions:
         d_id = portion.dish_id
         d = Dish.query.get(d_id)
         string_to_print = '{} - {} gramów'.format(d.name, portion.amount)
         to_print.append(string_to_print)
         parameters = meal.count_daily_parameters()
-
+    if parameters == 0:
+        flash('Nie dodałeś żadnego posiłku w dniu {}. Proszę dodaj posiłki.'.format(meal.date))
+        return redirect('/meal/' + str(m_id) + '/add/portion')
     return render_template("meal.html", meal=meal, id=m_id, to_print=to_print, parameters=parameters)
 
 
