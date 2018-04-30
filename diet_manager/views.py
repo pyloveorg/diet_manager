@@ -174,6 +174,34 @@ def dishes():
     return render_template("list_of_dishes.html", list=dishes_list)
 
 
+# @app.route('/dish/find/calories', methods=['GET', 'POST'])
+# @login_required
+# def find_calories():
+#     if request.method == "POST":
+#         min_calories = request.form.get("min_cal")
+#         max_calories = request.form.get("max_cal")
+#         dishes = Dish.query.filter(min_calories <= Dish.count_parameters() <= max_calories)
+#
+#         return redirect("/dish/find/calories")
+#
+#     return render_template("dish_calories")
+
+
+@app.route('/dish/find/name', methods=['GET', 'POST'])
+@login_required
+def find_name():
+    if request.method == "POST":
+        name_to_find = request.form.get("name")
+        found_dish = Dish.query.filter(Dish.name == name_to_find).first()
+        if found_dish is None:
+            flash('Nie ma takiej potrawy w naszej bazie.')
+            flash('Możesz dodać nową potrawę albo poszukać innej potrawy')
+            return redirect ('/list_of_dishes')
+        found_dish_id = found_dish.id
+        return redirect('/dish/' + str(found_dish_id))
+    return render_template("dish_find_name.html")
+
+
 @app.route('/meal/add', methods=['GET', 'POST'])
 @login_required
 def new_meal():
