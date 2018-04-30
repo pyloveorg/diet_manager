@@ -53,10 +53,15 @@ def product_data(ident):
     """
     product = Product.query.get(ident)
     ingredient_list = Ingredient.query.filter(Ingredient.product_id == product.id).all()
-    ingredient_id_list = []
+    dish_id_list = []
     for ingredient in ingredient_list:
-        ingredient_id_list.append(ingredient.id)
-    dish_list = Dish.query.filter(Dish.id.in_(ingredient_id_list)).all()
+        dish_id_list.append(ingredient.dish_id)
+    dish_list = Dish.query.filter(Dish.id.in_(dish_id_list)).all()
+
+    # sq = db.session.query(Ingredient.query.with_entities(Ingredient.dish_id)
+    #                       .filter(Ingredient.product_id == product.id)).subquery()
+    # q = db.session.query(Dish).filter(Dish.id.in_(sq))
+
     # dish_list = []
     # for ingredient in ingredient_list:
     #     dish = Dish.query.filter(ingredient.dish_id == Dish.id).first()
