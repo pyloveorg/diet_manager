@@ -7,7 +7,9 @@
     <h1>Lista produktów:</h1>
 
 
-    <table class="table table-dark">
+    <table class="table table-striped table-sm">
+      <thead class="thead-dark">
+
         <tr>
             <th> nazwa</th>
             <th> kalorie</th>
@@ -18,6 +20,7 @@
 
 
         </tr>
+      </thead>
         {% for product in products %}
         <tr>
             <td> {{ product['name'] }}</td>
@@ -50,8 +53,7 @@
     </form>
 
     <br>
-    <h1> Lista potraw:</h1>
-    <a href="/list_of_dishes">kliknij</a>
+
 
 </div>
 {% endblock %}

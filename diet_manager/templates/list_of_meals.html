@@ -14,14 +14,16 @@ Czy chcesz dodać pierwszy posiłek?
 {% else %}
 
 <h1> Lista Twoich posiłków: </h1>
+<table class="table table-sm table-striped">
+  <thead class="thead-dark">
 
-<table border>
     <tr>
         <th> data </th>
         <th> szczegóły </th>
 
 
     </tr>
+  </thead>
     {% for meal in list %}
     <tr>
         <td> {{ meal['date'] }} </td>
