@@ -4,14 +4,15 @@
 {% block content %}
 <div class="container">
 <h1> Lista potraw: </h1>
-
-<table border>
+<table class="table table-sm table-striped">
+  <thead class="thead-dark">
     <tr>
         <th> nazwa </th>
         <th> szczegóły </th>
 
 
     </tr>
+  </thead>
     {% for dish in list %}
     <tr>
         <td> {{ dish['name'] }} </td>
