@@ -201,11 +201,25 @@ def find_name():
         if found_dish is None:
             flash('Nie ma takiej potrawy w naszej bazie.')
             flash('Możesz dodać nową potrawę albo poszukać innej potrawy')
-            return redirect ('/list_of_dishes')
+            return redirect('/list_of_dishes')
         found_dish_id = found_dish.id
         return redirect('/dish/' + str(found_dish_id))
     return render_template("dish_find_name.html")
 
+
+@app.route('/dish/find/product', methods=['GET', 'POST'])
+@login_required
+def find_by_product():
+    if request.method == "POST":
+        product_to_find = request.form.get("name")
+        found_product = Product.query.filter(Product.name == product_to_find).first()
+        if found_product is None:
+            flash('Nie ma takiego produktu w naszej bazie.')
+            flash('Możesz dodać nowy produkt albo poszukać innej potrawy')
+            return redirect('/list_of_dishes')
+        found_product_id = found_product.id
+        return redirect('/product/' + str(found_product_id))
+    return render_template("dish_find_product.html")
 
 @app.route('/meal/add', methods=['GET', 'POST'])
 @login_required
