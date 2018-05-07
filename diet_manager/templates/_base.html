@@ -9,7 +9,7 @@
 
 <body>
   <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-    <a class="navbar-brand" href="/daily_meals">Daily Meals</a>
+    <a class="navbar-brand" href="/daily_meals">Lista Posiłków</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
             aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -18,7 +18,7 @@
     <div class="collapse navbar-collapse">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item{% if page_id == 'info' %} active{% endif %}">
-          <a class="nav-link" href="{{ url_for('info') }}">Info</a>
+          <a class="nav-link" href="{{ url_for('info') }}">O aplikacji</a>
         </li>
         {% if current_user.is_anonymous %}
         <li class="nav-item{% if page_id == 'register' %} active{% endif %}">
@@ -27,17 +27,17 @@
         {% endif %}
         {% if current_user.is_anonymous %}
         <li class="nav-item{% if page_id == 'login' %} active{% endif %}">
-          <a class="nav-link" href="/user/login">Login</a>
+          <a class="nav-link" href="/user/login">Logowanie</a>
         </li>
         {% else %}
         <li class="nav-item{% if page_id == 'products' %} active{% endif %}">
-          <a class="nav-link" href="/products">Products</a>
+          <a class="nav-link" href="/products">Produkty</a>
         </li>
         <li class="nav-item{% if page_id == 'dishes' %} active{% endif %}">
-          <a class="nav-link" href="/list_of_dishes">Dishes</a>
+          <a class="nav-link" href="/list_of_dishes">Potrawy</a>
         </li>
         <li class="nav-item{% if page_id == 'logout' %} active{% endif %}">
-          <a class="nav-link" href="/logout">Logout</a>
+          <a class="nav-link" href="/logout">Wyloguj</a>
         </li>
         {% endif %}
       </ul>
