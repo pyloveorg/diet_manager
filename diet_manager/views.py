@@ -221,6 +221,7 @@ def find_by_product():
         return redirect('/product/' + str(found_product_id))
     return render_template("dish_find_product.html")
 
+
 @app.route('/meal/add', methods=['GET', 'POST'])
 @login_required
 def new_meal():
