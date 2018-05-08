@@ -57,15 +57,6 @@ def product_data(ident):
     for ingredient in ingredient_list:
         dish_id_list.append(ingredient.dish_id)
     dish_list = Dish.query.filter(Dish.id.in_(dish_id_list)).all()
-
-    # sq = db.session.query(Ingredient.query.with_entities(Ingredient.dish_id)
-    #                       .filter(Ingredient.product_id == product.id)).subquery()
-    # q = db.session.query(Dish).filter(Dish.id.in_(sq))
-
-    # dish_list = []
-    # for ingredient in ingredient_list:
-    #     dish = Dish.query.filter(ingredient.dish_id == Dish.id).first()
-    #     dish_list.append(dish)
     if request.method == "POST":
         if current_user.admin:
             db.session.delete(product)
@@ -179,17 +170,38 @@ def dishes():
     return render_template("list_of_dishes.html", list=dishes_list)
 
 
-# @app.route('/dish/find/calories', methods=['GET', 'POST'])
-# @login_required
-# def find_calories():
-#     if request.method == "POST":
-#         min_calories = request.form.get("min_cal")
-#         max_calories = request.form.get("max_cal")
-#         dishes = Dish.query.filter(min_calories <= Dish.count_parameters() <= max_calories)
-#
-#         return redirect("/dish/find/calories")
-#
-#     return render_template("dish_calories")
+@app.route('/dish/find/calories', methods=['GET', 'POST'])
+@login_required
+def find_calories():
+    if request.method == "POST":
+        min_calories = request.form.get("min_cal")
+        max_calories = request.form.get("max_cal")
+        if float(min_calories) > float(max_calories):
+            flash("Wartość minimalna musi być mniejsza od maksymalnej")
+            return redirect("dish/find/calories")
+        return redirect("/dish/find/calories/" + str(min_calories) + "/" + str(max_calories))
+    return render_template("dish_find_calories.html")
+
+
+@app.route('/dish/find/calories/<cal_min>/<cal_max>', methods=['GET', 'POST'])
+@login_required
+def dish_by_calories(cal_min, cal_max):
+    dish_list = Dish.query.all()
+    calories_dish_list = []
+    for dish in dish_list:
+        if len(dish.ingredients) == 0:
+            dish_list.remove(dish)
+        else:
+            cal = dish.count_parameters()[0]
+            if float(cal_min) <= cal <= float(cal_max):
+                calories_dish_list.append((dish, cal))
+    if len(calories_dish_list) == 0:
+        flash("Niestety, nie ma w naszej bazie potraw o takiej kaloryczności")
+        flash("Możesz wpisać inne wartości i sprawdzić, czy coś dla Ciebie znajdziemy")
+        return redirect("/dish/find/calories")
+    calories_dish_list.sort(key=lambda tup: tup[1], reverse=False)
+    return render_template("dish_calories.html", cal_min=cal_min, cal_max=cal_max,
+                           cal_list=calories_dish_list)
 
 
 @app.route('/dish/find/name', methods=['GET', 'POST'])
