@@ -19,7 +19,7 @@ lm = LoginManager()
 lm.init_app(app)
 lm.login_view = 'login_user_dm'
 
-
-app.static_path = path.join(path.abspath(__file__), 'static')
+app.static_path = path.join(path.split(path.dirname(path.abspath(__file__)))[0], 'static')
+app.static_folder = app.static_path
 
 from diet_manager import views, models
