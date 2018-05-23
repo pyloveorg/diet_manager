@@ -5,8 +5,28 @@
 <div class="container">
 
 <h1>   Cześć {{current_user.name}} </h1>
-    Twoje BMI wynosi {{bmi}} i wskazuje na {{diagnose}}
+    Twoje BMI wynosi {{bmi}} i wskazuje na {{diagnose}}.
+<br>
 
+
+    {% if suggestion == less %}
+    Spróbuj ogranicznyć liczbę spożywanych kalorii i poprawić jakość posiłków.
+
+    {% elif suggestion == "equal" %}
+    Zadbaj, żeby Twoje posiłki były zdrowe i zawierały wszystkie niezbędne składniki. Ich kaloryczność jest w sam raz.
+
+    {% elif suggestion == "more" %}
+    Spróbuj zwiększyć kaloryczność swoich posiłków. Równocześnie pilnuj, żeby były zdrowe i zawierały wszystkie niezbędne składniki.
+
+    {% else %}
+    Z powodu niedostatecznych informacji nie możemy zaproponować ci żadnego rozwiązania. Skontaktuj się z naszymi patronami w celu wyjaśnienia problemu.
+
+    {% endif %}
+<br>
+<br>
+    Zapraszamy do kontaktu z naszymi patronami, którzy pomogą przygotować dla Ciebie idealną dietę.
+<br>
+<br>
 
 {% if list | length == 0 %}
 
