@@ -68,6 +68,13 @@ class User(db.Model, UserMixin):
         """
         return check_password_hash(self.password_hash, password)
 
+    def count_bmi(self):
+        """
+        Counts the BMI given weight (in kg) and height (in cm)
+        :return: float (BMI)
+        """
+        return round(self.weight / (self.height * 0.01) ** 2, 2)
+
 
 class Product(db.Model):
     """

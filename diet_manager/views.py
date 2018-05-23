@@ -349,10 +349,40 @@ def portion_delete(p_id):
 @login_required
 def list_of_meals():
     """
+    information about bmi and suggestions about the diet
     list of dates when user added his meals
     """
     meals_list = DailyMeals.query.filter(DailyMeals.user_id == current_user.id).order_by(DailyMeals.date).all()
-    return render_template("list_of_meals.html", list=meals_list, current_user=current_user)
+    bmi = current_user.count_bmi()
+    if bmi <= 16:
+        diagnose = "wygłodzenie"
+        suggestion = "more"
+    elif 16 < bmi <= 17:
+        diagnose = "wychudzenie"
+        suggestion = "more"
+    elif 17 < bmi <= 18.5:
+        diagnose = "niedowagę"
+        suggestion = "more"
+    elif 18.5 < bmi <= 25:
+        diagnose = "normę"
+        suggestion = "equal"
+    elif 25 < bmi <= 30:
+        diagnose = "nadwagę"
+        suggestion = "less"
+    elif 30 < bmi <= 35:
+        diagnose = "otyłość I stopnia"
+        suggestion = "less"
+    elif 35 < bmi <= 40:
+        diagnose = "otyłość II stopnia (kliniczną)"
+        suggestion = "less"
+    elif bmi > 40:
+        diagnose = "otyłość III stopnia (skrajną)"
+        suggestion = "less"
+    else:
+        diagnose = "Nie możemy wyliczyć Twojego BMI"
+        suggestion = None
+    return render_template("list_of_meals.html", list=meals_list, current_user=current_user,
+                           bmi=bmi, diagnose=diagnose, suggestion=suggestion)
 
 
 @lm.user_loader
