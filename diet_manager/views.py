@@ -24,21 +24,28 @@ def products():
     if request.method is GET, displays the list of products with the form to add new product
     """
     if request.method == "POST":
-        name = request.form.get("nazwa")
-        calories = request.form.get("kalorie")
-        protein = request.form.get("bialko")
-        fat = request.form.get("tluszcze")
-        carbohydrates = request.form.get("weglowodany")
-        if float(calories) < 0 or float(protein) < 0 or float(fat) < 0 or float(carbohydrates) < 0:
-            flash("Musisz wpisać dodatnie wartości kalorii, białka, tłuszczy i węglowodanów")
-            return redirect('/products')
-        product = Product(name=name, calories=calories, protein=protein,
-                          fat=fat, carbohydrates=carbohydrates)
-        db.session.add(product)
-        db.session.commit()
+        return add_product()
+    return list_products()
 
-        return redirect("/products")
 
+def add_product():
+    name = request.form.get("nazwa")
+    calories = request.form.get("kalorie")
+    protein = request.form.get("bialko")
+    fat = request.form.get("tluszcze")
+    carbohydrates = request.form.get("weglowodany")
+    if float(calories) < 0 or float(protein) < 0 or float(fat) < 0 or float(carbohydrates) < 0:
+        flash("Musisz wpisać dodatnie wartości kalorii, białka, tłuszczy i węglowodanów")
+        return redirect('/products')
+    product = Product(name=name, calories=calories, protein=protein,
+                      fat=fat, carbohydrates=carbohydrates)
+    db.session.add(product)
+    db.session.commit()
+
+    return redirect("/products")
+
+
+def list_products():
     products_list = Product.query.order_by(Product.name).all()
     return render_template("products.html", products=products_list)
 

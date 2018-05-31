@@ -8,7 +8,7 @@
 
 
     <table class="table table-striped table-sm">
-      <thead class="thead-dark">
+        <thead class="thead-dark">
 
         <tr>
             <th> nazwa</th>
@@ -20,7 +20,7 @@
 
 
         </tr>
-      </thead>
+        </thead>
         {% for product in products %}
         <tr>
             <td> {{ product['name'] }}</td>
@@ -39,17 +39,25 @@
     <form action="/products" method="post">
         <div class="form-group">
             <label for="nazwa"> Nazwa: </label>
-            <input class="form-control" type="text" required="required" name="nazwa"><br>
+            <input class="form-control" type="text" required="required" id="nazwa">
         </div>
-        <label for="kalorie"> Kalorie (na 100 g): </label>
-        <input type="number" step="0.01" min="0" required="required" name="kalorie"><br>
-        <label for="bialko"> Białko (na 100 g): </label>
-        <input type="number" step="0.01" min="0" required="required" name="bialko"><br>
-        <label for="tluszcze"> Tłuszcze (na 100 g): </label>
-        <input type="number" step="0.01" min="0" required="required" name="tluszcze"><br>
-        <label for="weglowodany"> Węglowodany (na 100 g): </label>
-        <input type="number" step="0.01" min="0" required="required" name="weglowodany"><br>
-        <button type="submit">Wyślij</button>
+        <div class="form-group">
+            <label for="kalorie"> Kalorie (na 100 g): </label>
+            <input class="form-control" type="number" step="0.01" min="0" required="required" id="kalorie">
+        </div>
+        <div class="form-group">
+            <label for="bialko"> Białko (na 100 g): </label>
+            <input class="form-control" type="number" step="0.01" min="0" required="required" id="bialko">
+        </div>
+        <div class="form-group">
+            <label for="tluszcze"> Tłuszcze (na 100 g): </label>
+            <input class="form-control" type="number" step="0.01" min="0" required="required" id="tluszcze">
+        </div>
+        <div class="form-group">
+            <label for="weglowodany"> Węglowodany (na 100 g): </label>
+            <input class="form-control" type="number" step="0.01" min="0" required="required" id="weglowodany">
+        </div>
+        <button type="submit">Dodaj</button>
     </form>
 
     <br>

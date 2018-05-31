@@ -1,42 +1,55 @@
-
 {% extends "_base.html" %}
 
 {% block content %}
 <div class="container">
-<h1> Lista potraw: </h1>
-<table class="table table-sm table-striped">
-  <thead class="thead-dark">
-    <tr>
-        <th> nazwa </th>
-        <th> szczegóły </th>
+    <h1> Lista potraw: </h1>
+    <table class="table table-sm table-striped">
+        <thead class="thead-dark">
+        <tr>
+            <th> nazwa</th>
+            <th> szczegóły</th>
 
 
-    </tr>
-  </thead>
-    {% for dish in list %}
-    <tr>
-        <td> {{ dish['name'] }} </td>
-        <td> <a href="dish/{{ dish['id']}}">kliknij</a></td>
+        </tr>
+        </thead>
+        {% for dish in list %}
+        <tr>
+            <td> {{ dish['name'] }}</td>
+            <td><a href="dish/{{ dish['id']}}">kliknij</a></td>
 
 
-    </tr>
-    {% endfor %}
-</table>
-<br>
-<h3> Czy chcesz dodać nową potrawę? </h3>
-    <a href="/dish/add"><button>Tak</button></a>
+        </tr>
+        {% endfor %}
+    </table>
+    <div>
+        <div>
+            <a href="/dish/add">
+                <button type="button" class="btn btn-dark">Dodaj potrawę</button>
+            </a>
+            <a href="/meal/add"><button type="button" class="btn btn-dark">Dodaj posiłek</button></a>
+        </div>
+        <div>
 
-<h3> Czy chcesz zobaczyć listę produktów? </h3>
-    <a href ="/products"><button>Tak</button></a>
+        </div>
 
-<h3> Czy chcesz dodać posiłek? </h3>
-    <a href ="/meal/add"><button>Tak</button></a>
 
-<h3> Chcę wyszukać potrawę na podstawie:</h3>
-    <a href = "dish/find/calories"><button> kaloryczności </button></a>
-    <a href = "dish/find/name"><button> nazwy </button></a>
-    <a href = "dish/find/product"><button> składnika </button></a>
+        <h3> Czy chcesz zobaczyć listę produktów? </h3>
+        <a href="/products">
+            <button>Tak</button>
+        </a>
 
+
+        <h3> Chcę wyszukać potrawę na podstawie:</h3>
+        <a href="dish/find/calories">
+            <button> kaloryczności</button>
+        </a>
+        <a href="dish/find/name">
+            <button> nazwy</button>
+        </a>
+        <a href="dish/find/product">
+            <button> składnika</button>
+        </a>
+    </div>
 
 
 </div>
