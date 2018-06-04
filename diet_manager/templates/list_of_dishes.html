@@ -9,15 +9,14 @@
         <thead class="thead-dark">
         <tr>
             <th> nazwa</th>
-            <th> szczegóły</th>
 
 
         </tr>
         </thead>
         {% for dish in list %}
         <tr>
-            <td> {{ dish['name'] }}</td>
-            <td><a href="dish/{{ dish['id']}}">kliknij</a></td>
+
+            <td><a href="dish/{{ dish['id']}}">{{ dish['name'] }}</a></td>
 
 
         </tr>
@@ -28,28 +27,29 @@
             <a href="/dish/add">
                 <button type="button" class="btn btn-dark">Dodaj potrawę</button>
             </a>
-            <a href="/meal/add"><button type="button" class="btn btn-dark">Dodaj posiłek</button></a>
+            <a href="/meal/add">
+                <button type="button" class="btn btn-dark">Dodaj posiłek</button>
+            </a>
+            <a href="/products">
+                <button type="button" class="btn btn-dark">Lista produktów</button>
+            </a>
         </div>
         <div>
 
         </div>
 
-
-        <h3> Czy chcesz zobaczyć listę produktów? </h3>
-        <a href="/products">
-            <button>Tak</button>
-        </a>
+        <br>
 
 
         <h3> Chcę wyszukać potrawę na podstawie:</h3>
         <a href="dish/find/calories">
-            <button> kaloryczności</button>
+            <button type="button" class="btn btn-dark"> kaloryczności</button>
         </a>
         <a href="dish/find/name">
-            <button> nazwy</button>
+            <button type="button" class="btn btn-dark"> nazwy</button>
         </a>
         <a href="dish/find/product">
-            <button> składnika</button>
+            <button type="button" class="btn btn-dark"> składnika</button>
         </a>
     </div>
 
