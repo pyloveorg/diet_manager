@@ -1,58 +1,50 @@
-
 {% extends "_base.html" %}
 
 {% block content %}
 <div class="container">
-<h1> Informacje o produkcie: </h1>
+    <h1> Informacje o produkcie: </h1>
 
-<table class="table table-sm table-bordered table-striped">
-    <tr>
-        <td>nazwa:</td>
-        <td>{{ product['name']}}</td>
-    </tr>
-    <tr>
-        <td>kalorie:</td>
-        <td>{{ product['calories']}}</td>
-    <tr>
-        <td>białko:</td>
-        <td>{{ product['protein']}}</td>
-    </tr>
-    <tr>
-        <td>tłuszcze:</td>
-        <td>{{ product['fat']}}</td>
-    </tr>
-    <tr>
-        <td>węglowodany:</td>
-        <td>{{ product['carbohydrates']}}</td>
-    </tr>
-</table>
+    <table class="table table-sm table-bordered table-striped">
+        <tr>
+            <td>nazwa:</td>
+            <td>{{ product['name']}}</td>
+        </tr>
+        <tr>
+            <td>kalorie:</td>
+            <td>{{ product['calories']}}</td>
+        <tr>
+            <td>białko:</td>
+            <td>{{ product['protein']}}</td>
+        </tr>
+        <tr>
+            <td>tłuszcze:</td>
+            <td>{{ product['fat']}}</td>
+        </tr>
+        <tr>
+            <td>węglowodany:</td>
+            <td>{{ product['carbohydrates']}}</td>
+        </tr>
+    </table>
 
-<a href="/product/{{ product['id']}}/edit">Edytuj</a>
-
-<br>
+    <a href="/product/{{ product['id']}}/edit">
+        <button type="button" class="btn btn-dark">Edytuj</button>
+    </a>
     <br>
     <br>
-
-
-<h1> Lista potraw, w których wykorzystujemy produkt {{ product['name']}}: </h1>
-    {% for dish in dish_list %}
-    <ul><a href="/dish/{{ dish['id']}}">{{dish['name']}}</a></ul>
-    {%endfor%}
-
-    <br>
-    <br>
+    <form action='/product/{{ id }}' method="post">
+        <button type="submit" class="btn btn-dark">Usuń produkt z listy</button>
+    </form>
     <br>
 
-<h1> Czy usunąć produkt z listy? </h1>
-<form action='/product/{{ id }}' method="post">
-       <button type="submit">Tak</button>
-</form>
-
-    <br>
-    <br>
-    <br>
-
-<h1> Powrót do listy produktów: </h1>
-<a href="/products">kliknij</a>
+    <a href="/products">
+        <button type="button" class="btn btn-dark">Powrót do listy produktów</button>
+    </a>
+    <div>
+        <br>
+        <h1> Lista potraw, w których wykorzystujemy produkt {{ product['name']}}: </h1>
+        {% for dish in dish_list %}
+        <ul><a href="/dish/{{ dish['id']}}">{{dish['name']}}</a></ul>
+        {%endfor%}
+    </div>
 </div>
 {% endblock %}
