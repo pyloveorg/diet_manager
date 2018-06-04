@@ -1,4 +1,3 @@
-
 {% extends "_base.html" %}
 
 {% set page_id = 'daily_meals' %}
@@ -6,9 +5,9 @@
 {% block content %}
 <div class="container">
 
-<h1>   Cześć {{current_user.name}} </h1>
+    <h1> Cześć {{current_user.name}} </h1>
     Twoje BMI wynosi {{bmi}} i wskazuje na {{diagnose}}.
-<br>
+    <br>
 
 
     {% if suggestion == less %}
@@ -18,50 +17,42 @@
     Zadbaj, żeby Twoje posiłki były zdrowe i zawierały wszystkie niezbędne składniki. Ich kaloryczność jest w sam raz.
 
     {% elif suggestion == "more" %}
-    Spróbuj zwiększyć kaloryczność swoich posiłków. Równocześnie pilnuj, żeby były zdrowe i zawierały wszystkie niezbędne składniki.
+    Spróbuj zwiększyć kaloryczność swoich posiłków. Równocześnie pilnuj, żeby były zdrowe i zawierały wszystkie
+    niezbędne składniki.
 
     {% else %}
-    Z powodu niedostatecznych informacji nie możemy zaproponować ci żadnego rozwiązania. Skontaktuj się z naszymi patronami w celu wyjaśnienia problemu.
+    Z powodu niedostatecznych informacji nie możemy zaproponować ci żadnego rozwiązania. Skontaktuj się z naszymi
+    patronami w celu wyjaśnienia problemu.
 
     {% endif %}
-<br>
-<br>
+    <br>
+    <br>
     Zapraszamy do kontaktu z naszymi patronami, którzy pomogą przygotować dla Ciebie idealną dietę.
-<br>
-<br>
+    <br>
+    <br>
 
-{% if list | length == 0 %}
+    {% if list | length == 0 %}
 
-Nie masz żadnych posiłków na liście.
-Czy chcesz dodać pierwszy posiłek?
-<a href ="/meal/add">Tak</a>
+    <div>Nie mamy w naszej bazie żadnych Twoich posiłków.</div>
+<a href="/meal/add">
+        <button type="button" class="btn btn-dark"> Dodaj pierwsze posiłki </button>
+    </a>
 
-{% else %}
+    {% else %}
 
-<h1> Lista Twoich posiłków: </h1>
-<table class="table table-sm table-striped">
-  <thead class="thead-dark">
+    <h1> W tych dniach masz wpisane swoje posiłki: </h1>
 
-    <tr>
-        <th> data </th>
-        <th> szczegóły </th>
-
-
-    </tr>
-  </thead>
     {% for meal in list %}
-    <tr>
-        <td> {{ meal['date'] }} </td>
-        <td> <a href="meal/{{ meal['id']}}">kliknij</a></td>
+
+    <ul><a href="meal/{{ meal['id']}}">{{ meal['date'] }} </a></ul>
 
 
-    </tr>
     {% endfor %}
-</table>
-<br>
 
-<h3> Czy chcesz dodać posiłki z innego dnia? </h3>
-    <a href ="/meal/add">Tak</a>
-{% endif %}
+    <h3><a href="/meal/add">
+        <button type="button" class="btn btn-dark"> Dodaj posiłki z innego dnia</button>
+    </a></h3>
+
+    {% endif %}
 </div>
 {% endblock %}
