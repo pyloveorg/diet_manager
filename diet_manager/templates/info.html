@@ -3,19 +3,23 @@
 {% set page_id = 'info' %}
 
 {% block content %}
-  <div class="row">
+<div class="row">
     <div class="col-12">
-      <h3>ZARZĄDZANIE DIETĄ</h3>
-      Cześć! <br>
-      W naszej aplikacji pomożemy Ci zarządzać jak najlepiej Twoją dietą.<br>
-      Powiemy Ci, ile codziennie zjadasz kalorii.<br>
-      Dowiesz się, ile zjadasz białka, tłuszczu, a ile węglowodanów.<br>
-      Podpowiemy Ci, o co najbardziej powinieneś zadbać w swojej diecie.<br>
-      <br>
-      Aby korzytać z naszej aplikacji musisz być zalogowany.<br>
-      Jeśli nie masz konta - koniecznie zarejestruj się!
+        <h3>ZARZĄDZANIE DIETĄ</h3>
+        Cześć! <br>
+        W naszej aplikacji pomożemy Ci zarządzać jak najlepiej Twoją dietą.<br>
+        Powiemy Ci, ile codziennie zjadasz kalorii.<br>
+        Dowiesz się, ile zjadasz białka, tłuszczu, a ile węglowodanów.<br>
+        Podpowiemy Ci, o co najbardziej powinieneś zadbać w swojej diecie.<br>
+        <br>
+
+        {% if current_user.is_anonymous %}
+        Aby korzytać z naszej aplikacji musisz być zalogowany.<br>
+        Jeśli nie masz konta - koniecznie zarejestruj się!
+        {% endif %}
+
     </div>
 
     <img src="static/img/chlebek.jpg" alt="Chlebek z oliwkami" height="300">
-  </div>
+</div>
 {% endblock %}
