@@ -4,15 +4,15 @@
 
 {% block content %}
 <form action="/user/register" method="post">
-         <label for="name">  Nazwa użytkownika: </label>
-        <input type="text" required = "required" name="name"><br>
-        <label for="email"> Email: </label>
-        <input type="email" required = "required" name = "email"><br>
-        <label for="password"> Hasło: </label>
-        <input type="password" required = "required" name = "password" id = "password"><br>
-        <label for="repeat_password"> Powtórz hasło: </label>
-        <input type="password" required = "required" name = "repeat_password" id = "repeat_password" oninput="check(this)"><br>
-        <script language='javascript' type='text/javascript'>
+    <label for="name"> Nazwa użytkownika: </label>
+    <input type="text" required="required" name="name"><br>
+    <label for="email"> Email: </label>
+    <input type="email" required="required" name="email"><br>
+    <label for="password"> Hasło: </label>
+    <input type="password" required="required" name="password" id="password"><br>
+    <label for="repeat_password"> Powtórz hasło: </label>
+    <input type="password" required="required" name="repeat_password" id="repeat_password" oninput="check(this)"><br>
+    <script language='javascript' type='text/javascript'>
             function check(input) {
                 if (input.value != document.getElementById('password').value) {
                     input.setCustomValidity('Password Must be Matching.');
@@ -21,11 +21,12 @@
                     input.setCustomValidity('');
                 }
             }
-        </script>
-        <label for="weight"> Waga (w kg): </label>
-        <input type="number" required = "required" name = "weight"><br>
-        <label for="height"> Wzrost (w cm): </label>
-        <input type="number" required = "required" name = "height"><br>
-        <button type="submit">Zarejestruj się</button>
+
+    </script>
+    <label for="weight"> Waga (w kg): </label>
+    <input type="number" required="required" name="weight"><br>
+    <label for="height"> Wzrost (w cm): </label>
+    <input type="number" required="required" name="height"><br>
+    <button type="submit" class="btn btn-dark">Zarejestruj się</button>
 </form>
 {% endblock %}

@@ -1,31 +1,32 @@
-
 {% extends "_base.html" %}
 
 {% block content %}
 <div class="container">
 
-<h1> Informacje o potrawie: </h1>
+    <h1> Informacje o potrawie: </h1>
 
-<h3> nazwa:
-    {{ dish['name']}}
-</h3>
-<br>
+    <h3> nazwa:
+        {{ dish['name']}}
+    </h3>
+    <br>
 
-<h3> składniki: </h3>
-{% for ingredient in to_print %}
-<ul> {{ingredient}} </ul>
-{% endfor %}
+    <h3> składniki: </h3>
+    {% for ingredient in to_print %}
+    <ul> {{ingredient}}</ul>
+    {% endfor %}
 
-<h3> potrawa waży: </h3>
-<ul> {{amount}} gramów </ul>
+    <h3> potrawa waży: </h3>
+    <ul> {{amount}} gramów</ul>
 
-<h3> wartości odżywcze na 100 g</h3>
-<ul> {{parameters[0]}} kalorii </ul>
-<ul> {{parameters[1]}} białka </ul>
-<ul> {{parameters[2]}} tłuszczu </ul>
-<ul> {{parameters[3]}} węglowodanów </ul>
+    <h3> wartości odżywcze na 100 g</h3>
+    <ul> {{parameters[0]}} kalorii</ul>
+    <ul> {{parameters[1]}} białka</ul>
+    <ul> {{parameters[2]}} tłuszczu</ul>
+    <ul> {{parameters[3]}} węglowodanów</ul>
 
- <a href ="/list_of_dishes"><button type="button" class="btn btn-dark">Powrót do listy potraw</button></a>
+    <a href="/list_of_dishes">
+        <button type="button" class="btn btn-dark">Powrót do listy potraw</button>
+    </a>
 
 
 </div>

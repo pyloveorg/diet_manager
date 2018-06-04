@@ -1,18 +1,16 @@
-
 {% extends "_base.html" %}
 
 {% block content %}
 
 <div class="container">
 
-<h1>Z jakiego dnia posiłki chcesz dodawać?</h1>
+    <h1>Z jakiego dnia posiłki chcesz dodawać?</h1>
 
-<form action="/meal/add" method="post">
+    <form action="/meal/add" method="post">
         <label for="data"> Data: </label>
-        <input type="date" required = "required" name="data"><br>
-        <button type="submit">Dodaj swoje posiłki</button>
-</form>
-
+        <input type="date" required="required" name="data"><br>
+        <button type="submit" class="btn btn-dark">Dodaj swoje posiłki</button>
+    </form>
 
 
 </div>

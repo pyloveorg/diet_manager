@@ -3,17 +3,14 @@
 {% block content %}
 
 <div class="container">
-<h1> posiłki z dnia {{meal['date']}}: </h1>
+    <h1> posiłki z dnia {{meal['date']}}: </h1>
 
-<br>
+    <br>
 
-<h3> Czego nie zjadłeś? </h3>
-{% for i in range(n) %}
-    <ul> <a href = "{{ links[i]}}"> {{to_print[i]}}</a> </ul>
-{% endfor %}
-
-
-
+    <h3> Czego nie zjadłeś? </h3>
+    {% for i in range(n) %}
+    <ul><a href="{{ links[i]}}"> {{to_print[i]}}</a></ul>
+    {% endfor %}
 
 
 </div>
