@@ -180,6 +180,10 @@ def dishes():
 @app.route('/dish/find/calories', methods=['GET', 'POST'])
 @login_required
 def find_calories():
+    """
+    user can find dishes that have the value of calories (per 100g) between two
+    values given by User
+    """
     if request.method == "POST":
         min_calories = request.form.get("min_cal")
         max_calories = request.form.get("max_cal")
@@ -193,6 +197,11 @@ def find_calories():
 @app.route('/dish/find/calories/<cal_min>/<cal_max>', methods=['GET', 'POST'])
 @login_required
 def dish_by_calories(cal_min, cal_max):
+    """
+    is the result of the function find_calories
+    :param cal_min: float
+    :param cal_max: float
+    """
     dish_list = Dish.query.all()
     calories_dish_list = []
     for dish in dish_list:
@@ -214,6 +223,9 @@ def dish_by_calories(cal_min, cal_max):
 @app.route('/dish/find/name', methods=['GET', 'POST'])
 @login_required
 def find_name():
+    """
+    user can find dish by name written in the form
+    """
     if request.method == "POST":
         name_to_find = request.form.get("name")
         found_dish = Dish.query.filter(Dish.name == name_to_find).first()
@@ -229,6 +241,10 @@ def find_name():
 @app.route('/dish/find/product', methods=['GET', 'POST'])
 @login_required
 def find_by_product():
+    """
+    user can find dishes that are made using chosen product (written in the form)
+    user is redirected to the page of that product (with all dishes written on that page)
+    """
     if request.method == "POST":
         product_to_find = request.form.get("name")
         found_product = Product.query.filter(Product.name == product_to_find).first()
