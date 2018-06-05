@@ -8,7 +8,6 @@ from sqlalchemy import Column, ForeignKey, UniqueConstraint
 from sqlalchemy.types import Integer
 from sqlalchemy.types import String
 from sqlalchemy.types import Boolean
-from sqlalchemy.types import Date
 from sqlalchemy.types import Float
 
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -112,9 +111,6 @@ class Ingredient(db.Model):
     amount = Column(Float, nullable=False)
     product_id = Column(Integer, ForeignKey('products.id'))
     dish_id = Column(Integer, ForeignKey('dish.id'))
-
-    # def __repr__(self):
-    #     return "{} - {} g".format(self.product_id.name, self.amount)
 
 
 class Dish(db.Model):
