@@ -197,7 +197,7 @@ def dish_by_calories(cal_min, cal_max):
     calories_dish_list = []
     for dish in dish_list:
         if len(dish.ingredients) == 0:
-            dish_list.remove(dish)
+            pass
         else:
             cal = dish.count_parameters()[0]
             if float(cal_min) <= cal <= float(cal_max):
