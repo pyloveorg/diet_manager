@@ -426,7 +426,7 @@ def register_user():
         height = request.form.get('height')
         new_user = User(name=name, email=email, weight=weight, height=height)
         new_user.set_password(password)
-        flash('New user registered')
+        flash('Zarejestrowano nowego użytkownika')
         db.session.add(new_user)
         db.session.commit()
         return redirect('/daily_meals')
