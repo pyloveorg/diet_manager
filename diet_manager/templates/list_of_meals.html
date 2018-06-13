@@ -1,0 +1,68 @@
+{% extends "_base.html" %}
+
+{% set page_id = 'daily_meals' %}
+
+{% block content %}
+<div class="container">
+
+    <h1> Cześć {{current_user.name}} </h1>
+    Twoje BMI wynosi {{bmi}} i wskazuje na {{diagnose}}.
+    <br>
+
+
+    {% if suggestion == "less" %}
+    Spróbuj ogranicznyć liczbę spożywanych kalorii i poprawić jakość posiłków.
+
+    {% elif suggestion == "equal" %}
+    Zadbaj, żeby Twoje posiłki były zdrowe i zawierały wszystkie niezbędne składniki. Ich kaloryczność jest w sam raz.
+
+    {% elif suggestion == "more" %}
+    Spróbuj zwiększyć kaloryczność swoich posiłków. Równocześnie pilnuj, żeby były zdrowe i zawierały wszystkie
+    niezbędne składniki.
+
+    {% else %}
+    Z powodu niedostatecznych informacji nie możemy zaproponować ci żadnego rozwiązania. Skontaktuj się z naszymi
+    patronami w celu wyjaśnienia problemu.
+
+    {% endif %}
+    <br>
+    <br>
+    Zapraszamy do kontaktu z naszymi patronami, którzy pomogą przygotować dla Ciebie idealną dietę.
+    <br>
+    <br>
+
+    {% if list | length == 0 %}
+
+    <div>Nie mamy w naszej bazie żadnych Twoich posiłków.</div>
+    <a href="/meal/add">
+        <button type="button" class="btn btn-dark"> Dodaj pierwsze posiłki</button>
+    </a>
+
+    {% else %}
+
+    <table class="table table-sm table-striped">
+        <thead class="thead-dark">
+        <tr>
+            <th> W tych dniach masz wpisane swoje posiłki</th>
+
+
+        </tr>
+        </thead>
+        {% for meal in list %}
+        <tr>
+
+            <td><a href="meal/{{ meal['id']}}">{{ meal['date'] }} </a></td>
+
+
+        </tr>
+        {% endfor %}
+    </table>
+
+
+    <h3><a href="/meal/add">
+        <button type="button" class="btn btn-dark"> Dodaj posiłki z innego dnia</button>
+    </a></h3>
+
+    {% endif %}
+</div>
+{% endblock %}

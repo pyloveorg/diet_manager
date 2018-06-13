@@ -1,0 +1,58 @@
+{% extends "_base.html" %}
+
+{% set page_id = 'dishes' %}
+
+{% block content %}
+<div class="container">
+    <h1> Lista potraw: </h1>
+    <table class="table table-sm table-striped">
+        <thead class="thead-dark">
+        <tr>
+            <th> nazwa</th>
+
+
+        </tr>
+        </thead>
+        {% for dish in list %}
+        <tr>
+
+            <td><a href="dish/{{ dish['id']}}">{{ dish['name'] }}</a></td>
+
+
+        </tr>
+        {% endfor %}
+    </table>
+    <div>
+        <div>
+            <a href="/dish/add">
+                <button type="button" class="btn btn-dark">Dodaj potrawę</button>
+            </a>
+            <a href="/meal/add">
+                <button type="button" class="btn btn-dark">Dodaj posiłek</button>
+            </a>
+            <a href="/products">
+                <button type="button" class="btn btn-dark">Lista produktów</button>
+            </a>
+        </div>
+        <div>
+
+        </div>
+
+        <br>
+
+
+        <h3> Chcę wyszukać potrawę na podstawie:</h3>
+        <a href="dish/find/calories">
+            <button type="button" class="btn btn-dark"> kaloryczności</button>
+        </a>
+        <a href="dish/find/name">
+            <button type="button" class="btn btn-dark"> nazwy</button>
+        </a>
+        <a href="dish/find/product">
+            <button type="button" class="btn btn-dark"> składnika</button>
+        </a>
+    </div>
+
+
+</div>
+{% endblock %}

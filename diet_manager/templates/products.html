@@ -1,0 +1,67 @@
+{% extends "_base.html" %}
+
+{% set page_id = 'products' %}
+
+{% block content %}
+
+<div class="container">
+
+    <h1>Lista produktów:</h1>
+
+
+    <table class="table table-striped table-sm">
+        <thead class="thead-dark">
+
+        <tr>
+            <th> nazwa</th>
+            <th> kalorie</th>
+            <th> białko</th>
+            <th> tłuszcze</th>
+            <th> węglowodany</th>
+
+
+        </tr>
+        </thead>
+        {% for product in products %}
+        <tr>
+            <td><a href="product/{{ product['id']}}">{{ product['name'] }}</a></td>
+            <td> {{ product['calories'] }}</td>
+            <td> {{ product['protein'] }}</td>
+            <td> {{ product['fat'] }}</td>
+            <td> {{ product['carbohydrates'] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+
+    <h1>Dodaj nowy produkt:</h1>
+
+    <form action="/products" method="post">
+        <div class="form-group">
+            <label for="nazwa"> Nazwa: </label>
+            <input class="form-control" type="text" required="required" name="nazwa" id="nazwa">
+        </div>
+        <div class="form-group">
+            <label for="kalorie"> Kalorie (na 100 g): </label>
+            <input class="form-control" type="number" step="0.01" min="0" required="required"  name="kalorie" id="kalorie">
+        </div>
+        <div class="form-group">
+            <label for="bialko"> Białko (na 100 g): </label>
+            <input class="form-control" type="number" step="0.01" min="0" required="required" name="bialko" id="bialko">
+        </div>
+        <div class="form-group">
+            <label for="tluszcze"> Tłuszcze (na 100 g): </label>
+            <input class="form-control" type="number" step="0.01" min="0" required="required" name="tluszcze" id="tluszcze">
+        </div>
+        <div class="form-group">
+            <label for="weglowodany"> Węglowodany (na 100 g): </label>
+            <input class="form-control" type="number" step="0.01" min="0" required="required" name="weglowodany" id="weglowodany">
+        </div>
+        <button type="submit" class="btn btn-dark">Dodaj</button>
+    </form>
+
+    <br>
+
+
+</div>
+{% endblock %}

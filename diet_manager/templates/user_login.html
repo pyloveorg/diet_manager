@@ -1,0 +1,16 @@
+{% extends "_base.html" %}
+
+{% set page_id = 'login' %}
+
+{% block content %}
+
+<h1>Logowanie:</h1>
+
+<form action="/user/login" method="post">
+        <label for="email"> E-mail: </label>
+        <input type="text" required = "required" name="email"><br>
+        <label for="password"> Hasło: </label>
+        <input type="password" required = "required" name="password"><br>
+        <button type="submit" class="btn btn-dark">Zaloguj</button>
+</form>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "_base.html" %}
+
+{% block content %}
+<form action="/product/{{ id }}/edit" method="post">
+    <label for="nazwa"> Nazwa: </label>
+    <input type="text" name="nazwa" value={{product['name']}}><br>
+    <label for="kalorie"> Kalorie (na 100 g): </label>
+    <input type="number" step="0.01" name="kalorie" value={{product['calories']}}><br>
+    <label for="bialko"> Białko (na 100 g): </label>
+    <input type="number" step="0.01" name="bialko" value={{product['protein']}}><br>
+    <label for="tluszcze"> Tłuszcze (na 100 g): </label>
+    <input type="number" step="0.01" name="tluszcze" value={{product['fat']}}><br>
+    <label for="weglowodany"> Węglowodany (na 100 g): </label>
+    <input type="number" step="0.01" name="weglowodany" value={{product['carbohydrates']}}><br>
+    <button type="submit" class="btn btn-dark">Zmień</button>
+</form>
+{% endblock %}

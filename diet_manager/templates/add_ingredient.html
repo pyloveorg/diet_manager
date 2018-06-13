@@ -1,0 +1,31 @@
+{% extends "_base.html" %}
+
+{% block content %}
+<div class="container">
+
+    <h3> składniki {{dish['name']}}: </h3>
+    {% for ingredient in to_print %}
+    <ul> {{ingredient}}</ul>
+    {% endfor %}
+
+    <h3> dodaj nowy składnik</h3>
+    <form action="/dish/{{dish_id}}/add/ingredient" method="post">
+        <label for="ilosc"> Ilość (w gramach): </label>
+        <input type="number" step="0.01" min="0" required="required" name="ilosc"><br>
+        <label for="product"> Produkt: </label>
+        <select name="product">
+            {% for p in products_list %}
+            <option value={{p['id']}}>{{p['name']}}</option>
+            {% endfor %}
+        </select>
+
+        <button type="submit" class="btn btn-dark">Dodaj</button>
+    </form>
+    <br>
+    <div>
+        <a href="/list_of_dishes">
+            <button type="button" class="btn btn-dark">To już wszystkie składniki</button>
+        </a>
+    </div>
+</div>
+{% endblock %}

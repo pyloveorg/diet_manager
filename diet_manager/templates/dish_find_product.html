@@ -1,0 +1,15 @@
+{% extends "_base.html" %}
+
+{% block content %}
+<div class="container">
+
+    <h1>Wyszukiwanie potraw na podstawie użytego produktu:</h1>
+
+    <form action="/dish/find/product" method="post">
+        <label for="name"> nazwa: </label>
+        <input type="text" required="required" name="name"><br>
+        <button type="submit" class="btn btn-dark">Wyszukaj</button>
+    </form>
+
+</div>
+{% endblock %}
